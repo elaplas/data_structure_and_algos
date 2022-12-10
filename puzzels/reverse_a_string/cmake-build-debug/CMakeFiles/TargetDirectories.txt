@@ -1,3 +1,0 @@
-/home/z639627/Local_Repo/C++_examples/puzzels/reverse_a_string/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/z639627/Local_Repo/C++_examples/puzzels/reverse_a_string/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/z639627/Local_Repo/C++_examples/puzzels/reverse_a_string/cmake-build-debug/CMakeFiles/reverse_a_string.dir

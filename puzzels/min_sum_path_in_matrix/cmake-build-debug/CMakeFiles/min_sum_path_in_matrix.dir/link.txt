@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/min_sum_path_in_matrix.dir/main.cpp.o -o min_sum_path_in_matrix 

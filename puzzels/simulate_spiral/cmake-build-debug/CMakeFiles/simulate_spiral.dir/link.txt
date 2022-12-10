@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/simulate_spiral.dir/main.cpp.o  -o simulate_spiral 

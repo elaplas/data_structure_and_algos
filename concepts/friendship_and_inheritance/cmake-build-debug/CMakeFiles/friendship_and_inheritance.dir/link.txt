@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/friendship_and_inheritance.dir/main.cpp.o -o friendship_and_inheritance 

@@ -1,3 +1,0 @@
-/home/z639627/Local_Repo/C++_examples/rotate_matrix/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/z639627/Local_Repo/C++_examples/rotate_matrix/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/z639627/Local_Repo/C++_examples/rotate_matrix/cmake-build-debug/CMakeFiles/rotate_matrix.dir

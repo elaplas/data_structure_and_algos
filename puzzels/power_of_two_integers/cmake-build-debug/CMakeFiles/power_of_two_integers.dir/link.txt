@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/power_of_two_integers.dir/main.cpp.o -o power_of_two_integers 

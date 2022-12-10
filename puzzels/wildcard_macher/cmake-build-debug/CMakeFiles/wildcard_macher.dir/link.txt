@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/wildcard_macher.dir/main.cpp.o -o wildcard_macher 

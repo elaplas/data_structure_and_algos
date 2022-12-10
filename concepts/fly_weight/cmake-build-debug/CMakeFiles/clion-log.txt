@@ -1,4 +1,0 @@
-/home/z639627/Local_Repo/clion-2019.3.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/z639627/Local_Repo/C++_examples/concepts/fly_weight
--- Configuring done
--- Generating done
--- Build files have been written to: /home/z639627/Local_Repo/C++_examples/concepts/fly_weight/cmake-build-debug

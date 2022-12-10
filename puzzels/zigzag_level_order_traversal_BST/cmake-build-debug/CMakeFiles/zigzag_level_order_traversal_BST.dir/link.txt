@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/zigzag_level_order_traversal_BST.dir/main.cpp.o -o zigzag_level_order_traversal_BST 

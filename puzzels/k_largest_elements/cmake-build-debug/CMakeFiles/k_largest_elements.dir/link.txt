@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/k_largest_elements.dir/main.cpp.o -o k_largest_elements 

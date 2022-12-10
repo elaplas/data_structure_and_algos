@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/say_and_count.dir/main.cpp.o -o say_and_count 

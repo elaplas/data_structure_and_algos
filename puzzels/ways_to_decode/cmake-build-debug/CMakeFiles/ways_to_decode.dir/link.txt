@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/ways_to_decode.dir/main.cpp.o -o ways_to_decode 

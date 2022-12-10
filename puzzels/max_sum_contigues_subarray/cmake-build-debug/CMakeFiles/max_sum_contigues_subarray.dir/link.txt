@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/max_sum_contigues_subarray.dir/main.cpp.o -o max_sum_contigues_subarray 

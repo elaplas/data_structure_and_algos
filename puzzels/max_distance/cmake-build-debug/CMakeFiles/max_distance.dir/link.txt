@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/max_distance.dir/main.cpp.o -o max_distance 
