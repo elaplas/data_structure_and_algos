@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/colorful_number.dir/main.cpp.o -o colorful_number 

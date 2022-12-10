@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/dynamic_tree.dir/main.cpp.o -o dynamic_tree 

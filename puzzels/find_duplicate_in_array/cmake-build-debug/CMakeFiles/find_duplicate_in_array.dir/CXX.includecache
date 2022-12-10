@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z639627/Local_Repo/C++_examples/puzzels/find_duplicate_in_array/main.cpp
+iostream
+-
+vector
+-
+algorithm
+-
+cstring
+-
+

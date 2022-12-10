@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/win_with_shopping.dir/main.cpp.o -o win_with_shopping 

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z639627/Local_Repo/C++_examples/puzzels/zigzag_level_order_traversal_BST/BST.h
+stack
+-
+vector
+-
+algorithm
+-
+
+/home/z639627/Local_Repo/C++_examples/puzzels/zigzag_level_order_traversal_BST/main.cpp
+iostream
+-
+BST.h
+/home/z639627/Local_Repo/C++_examples/puzzels/zigzag_level_order_traversal_BST/BST.h
+

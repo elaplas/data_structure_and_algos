@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z639627/Local_Repo/C++_examples/puzzels/deep_first_search/graph.h
+unordered_map
+-
+vector
+-
+
+/home/z639627/Local_Repo/C++_examples/puzzels/deep_first_search/main.cpp
+iostream
+-
+graph.h
+/home/z639627/Local_Repo/C++_examples/puzzels/deep_first_search/graph.h
+

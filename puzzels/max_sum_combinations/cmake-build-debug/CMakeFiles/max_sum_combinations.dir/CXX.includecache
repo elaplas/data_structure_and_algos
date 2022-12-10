@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z639627/Local_Repo/C++_examples/puzzels/max_sum_combinations/main.cpp
+iostream
+-
+vector
+-
+queue
+-
+algorithm
+-
+tuple
+-
+

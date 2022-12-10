@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/longest_commen_string.dir/main.cpp.o -o longest_commen_string 

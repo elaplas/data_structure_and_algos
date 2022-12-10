@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z639627/Local_Repo/C++_examples/puzzels/Fibonacci/Fibonacci.h
+vector
+-
+
+/home/z639627/Local_Repo/C++_examples/puzzels/Fibonacci/main.cpp
+iostream
+-
+Fibonacci.h
+/home/z639627/Local_Repo/C++_examples/puzzels/Fibonacci/Fibonacci.h
+

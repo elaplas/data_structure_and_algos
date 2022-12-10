@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/longest_repeating_subsequence.dir/main.cpp.o -o longest_repeating_subsequence 

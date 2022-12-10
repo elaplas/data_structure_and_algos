@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/balanced_brackets.h
+stack
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/stack
+string
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/string
+
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/dynamic_stack.h
+
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/main.cpp
+iostream
+-
+dynamic_stack.h
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/dynamic_stack.h
+static_stack.h
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/static_stack.h
+balanced_brackets.h
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/balanced_brackets.h
+
+/home/z639627/Local_Repo/C++_examples/data_structures/stack/static_stack.h
+

@@ -1,0 +1,4 @@
+{
+    "cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
+    "cmake.sourceDirectory" : "${workspaceRoot}/data_structures/vector/"
+} 

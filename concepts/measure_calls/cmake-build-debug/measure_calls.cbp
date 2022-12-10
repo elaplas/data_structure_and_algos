@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="measure_calls"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="measure_calls">
+				<Option output="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/measure_calls" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 measure_calls"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="measure_calls/fast">
+				<Option output="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/measure_calls" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 measure_calls/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/CallFrequency.cpp">
+			<Option target="measure_calls"/>
+		</Unit>
+		<Unit filename="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/CallFrequency.h">
+			<Option target="measure_calls"/>
+		</Unit>
+		<Unit filename="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/main.cpp">
+			<Option target="measure_calls"/>
+		</Unit>
+		<Unit filename="/home/z639627/Local_Repo/C++_examples/concepts/measure_calls/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
