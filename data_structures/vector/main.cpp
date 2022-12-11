@@ -5,8 +5,6 @@
 using namespace P;
 
 
-
-
 int main() {
 
   Vector<int> vector1;
@@ -27,7 +25,6 @@ int main() {
   {
     std::cout<< *it << "\n";
   }
-
 
   return 0;
 }

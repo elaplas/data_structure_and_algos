@@ -1,5 +1,5 @@
 //
-// Created by z639627 on 2/27/21.
+// Created by Ebi on 2/27/21.
 //
 
 #ifndef ARRAY__ARRAY_H_
@@ -14,6 +14,8 @@ template<class Type, int MAX_SIZE>
 class Array {
 
   typedef class Iterator<Type> FieldIterator;
+  typedef const Type ConstType;
+  typedef class Iterator<ConstType> ConstFieldIterator;
  public:
 
   Array():
@@ -22,12 +24,13 @@ class Array {
 
   int getSize()
   {
-      size;
+    return size;
   }
 
   int resize(int newSize)
   {
     size = newSize;
+    return size;
   }
 
   Type& operator[](int index)
@@ -56,6 +59,16 @@ class Array {
   FieldIterator end()
   {
     return FieldIterator(&data[size]);
+  }
+
+   ConstFieldIterator begin() const
+  {
+    return ConstFieldIterator(data);
+  }
+
+  ConstFieldIterator end() const
+  {
+    return ConstFieldIterator(&data[size]);
   }
 
  private:
