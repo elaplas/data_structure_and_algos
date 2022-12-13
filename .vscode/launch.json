@@ -5,7 +5,7 @@
             "name": "C/C++: gcc build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/goo2hi/mydev/C++_examples/C++_examples/data_structures/array/cmake-build-debug/array",
+            "program": "/home/goo2hi/mydev/C++_examples/C++_examples/data_structures/array/cmake-build-debug/vector",
             "args": [],
             "stopAtEntry": false,
             "cwd": "/home/goo2hi/mydev/C++_examples/C++_examples/data_structures/array/",
