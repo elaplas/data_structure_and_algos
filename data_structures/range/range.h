@@ -1,4 +1,5 @@
 #include <iterator>
+#include <iostream>
 
 #pragma
 
@@ -13,7 +14,15 @@ class range {
                                         >{
         public:
 
-            Iterator(long num=0):m_num(num){}
+            Iterator(long num=0):m_num(num)
+            {
+                std::cout<<"iterator constructed in address "<<this<<" with num: "<<m_num<<std::endl;
+            }
+
+            ~Iterator()
+            {
+                std::cout<<"iterator destructed in address "<<this<<" with num: "<<m_num<<std::endl;
+            }
         
             Iterator& operator++(){
                 m_num = To >= From? m_num+1 : m_num-1;

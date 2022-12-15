@@ -26,5 +26,23 @@ int main() {
     std::cout<< *it << "\n";
   }
 
+  std::cout<<"............................................"<<std::endl;
+
+  vector1.erase(vector1.begin() + 5, vector1.begin()+10);
+
+   for (auto it = vector1.begin(); it != vector1.end(); it++)
+  {
+    std::cout<< *it << "\n";
+  }
+  
+  std::cout<<"............................................"<<std::endl;
+
+  vector1.erase(vector1.begin() + 15);
+
+  for (auto it = vector1.begin(); it != vector1.end(); it++)
+  {
+    std::cout<< *it << "\n";
+  }
+
   return 0;
 }

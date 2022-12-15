@@ -1,7 +1,6 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-
 namespace P{
 
 template<class Type>
@@ -75,7 +74,6 @@ class Vector{
     }
   }
 
-
   void push_back(const Type& element)
   {
     if (size_ >= capacity_)
@@ -124,6 +122,39 @@ class Vector{
     capacity_ = capacity;
   }
 
+  iterator erase(iterator first, iterator last)
+  {
+    auto endIt = end();
+
+    // Corner case: end iterator passed as first iterator
+    if (first == endIt)
+    {
+      return endIt;
+    }
+    auto followingItAfterErase = first + 1;
+    // Move elements, which invalidates iterators including end iterator
+    while (last != endIt)
+    {
+      ++last;
+      // Check if last is not already the end iterator because the end iterator is valid but not dereferenceable
+      if (last!= endIt)
+      {
+        *first = *last;
+      }
+      ++first;
+    }
+    // Fix size and end iterator ( one is added because the difference b/w two numbers don't count one number)
+    auto itDiff = (last - first) + 1;
+    size_ -= itDiff;
+
+    return  followingItAfterErase;
+  }
+
+  iterator erase(iterator pos)
+  {
+    return erase(pos, pos);
+  }
+
   iterator begin()
   {
     return data_;
@@ -134,17 +165,12 @@ class Vector{
     return data_ + size_;
   }
 
-
 private:
   int size_;
   int capacity_;
   Type* data_;
-
-
 };
 
 }
-
-
 
 #endif//VECTOR_H_
