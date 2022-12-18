@@ -11,8 +11,6 @@ class deque{
   explicit deque():m_bookCapacity(10), 
                    m_arrCapacity(10),
                    m_arr_back(0),
-                   m_push_back_call(false),
-                   m_push_front_call(false),
                    m_size(0)
   {
     m_book_back = m_bookCapacity/2;
@@ -185,8 +183,6 @@ class deque{
   std::int32_t m_book_back;
   std::int32_t m_arr_front;
   std::int32_t m_arr_back;
-  bool m_push_back_call;
-  bool m_push_front_call;
   std::uint64_t m_size;
 
 };
