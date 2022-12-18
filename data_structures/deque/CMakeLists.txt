@@ -3,4 +3,4 @@ project(deque)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(deque main.cpp deque.h)
+add_executable(deque main.cpp deque.h iterator.h)

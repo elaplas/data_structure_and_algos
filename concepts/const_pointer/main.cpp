@@ -36,6 +36,30 @@ int main() {
   *c = 10;
   c = nullptr;
 
+  // A pointer of a pointer of a const integer
+  const int** ptr;
+  // A pointer of a const pointer of a const integer
+  const int* const * ptr2;
+  // A pointer of const integer
+  const int* ptr3;
+  // a pointer of an integer
+  int* ptr4;
+  // a const pointer of of pointer of a const integer
+  const int** const ptr5 = nullptr;
+  // A const pointer of const integer
+  const int* const ptr6 = nullptr;
+
+  // The following line will fail because it is not allowed to convert int** to const int**
+  // (not the same type)
+  ptr = &ptr4;
+  // The following line is complied because "const int*"" is a pointer of a const integer and its pointer is a pointer of a pointer of const integer
+  // (the same type )
+  ptr = &ptr3;
+  // The following line is complied because "int*" is converted first to "int* const" and then converted to a pointer of const pointer to const integer
+  // (the same type since it is converted is two steps)
+  ptr2 = &ptr4;
+  
+
 
 
   std::cout << "Hello, World!" << std::endl;

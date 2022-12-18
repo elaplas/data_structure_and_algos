@@ -58,5 +58,24 @@ int main() {
     std::cout<<deq[i]<<std::endl;
   }
 
+  std::cout<<".................iterator.................."<<std::endl;
+
+  for (auto& it: deq)
+  {
+    std::cout<<it<<std::endl;
+  }
+
+  std::cout<<".................const iterator.................."<<std::endl;
+
+  const auto& deq1 = deq;
+
+  for (auto& it: deq1)
+  {
+    std::cout<<it<<std::endl;
+  }
+
+  int* ptr;
+  const int* const ptr1 = ptr;
+
   return 0;
 }

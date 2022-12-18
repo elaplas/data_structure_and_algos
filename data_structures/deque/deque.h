@@ -1,12 +1,18 @@
 #ifndef DEQUE_H_
 #define DEQUE_H_
 
+#include <iostream>
+#include "iterator.h"
+
 namespace P{
 
 template<class T>
 class deque{
 
   public:
+
+  typedef iterator<T, T*> Iterator;
+  typedef iterator<const T, const T* const> ConstIterator;
 
   explicit deque():m_bookCapacity(10), 
                    m_arrCapacity(10),
@@ -143,6 +149,59 @@ class deque{
   const T& operator[](std::uint32_t i) const
   {
     return const_cast<deque<T>*>(this)[i];
+  }
+
+  Iterator begin()
+  {
+    std::cout<<"begin is called"<<std::endl;
+    T* arrPtr;
+    T** bookPtr;
+    if (m_arr_front == m_arrCapacity-1)
+    {
+      bookPtr = m_ptrBook + m_book_front + 1;
+      arrPtr = m_ptrBook[m_book_front + 1];
+    }
+    else
+    {
+      bookPtr = m_ptrBook + m_book_front;
+      arrPtr = m_ptrBook[m_book_front] + m_arr_front +1;
+    }
+    return Iterator(arrPtr, bookPtr, m_arrCapacity);
+  }
+
+  Iterator end()
+  {
+    std::cout<<"end is called"<<std::endl;
+    T** bookPtr = m_ptrBook + m_book_back;
+    T* arrPtr = m_ptrBook[m_book_back] + m_arr_back;
+    return Iterator(arrPtr, bookPtr, m_arrCapacity);
+  }
+
+  ConstIterator begin() const
+  {
+    std::cout<<"const begin is called"<<std::endl;
+    T* arrPtr;
+    T** bookPtr;
+    if (m_arr_front == m_arrCapacity-1)
+    {
+      bookPtr = m_ptrBook + m_book_front + 1;
+      arrPtr = m_ptrBook[m_book_front + 1];
+    }
+    else
+    {
+      bookPtr = m_ptrBook + m_book_front;
+      arrPtr = m_ptrBook[m_book_front] + m_arr_front +1;
+    }
+    return ConstIterator(arrPtr, bookPtr, m_arrCapacity);
+  }
+
+  ConstIterator end() const
+  {
+    std::cout<<"const end is called"<<std::endl;
+    std::cout<<"end is called"<<std::endl;
+    T** bookPtr = m_ptrBook + m_book_back;
+    T* arrPtr = m_ptrBook[m_book_back] + m_arr_back;
+    return ConstIterator(arrPtr, bookPtr, m_arrCapacity);
   }
 
   private:
