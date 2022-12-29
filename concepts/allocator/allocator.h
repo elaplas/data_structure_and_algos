@@ -42,7 +42,5 @@ class allocator {
             std::cout<<"one object is destructed in memory address: "<<ptr<<std::endl;
             ptr->~T();
         }
-
-
 };
 

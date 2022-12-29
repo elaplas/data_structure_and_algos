@@ -84,6 +84,18 @@ class Vector{
     ++size_;
   }
 
+  template<class... Arg>
+  void emplace_back(Arg... args)
+  {
+    if (size_ >= capacity_)
+    {
+      reserve(capacity_ + 10);
+    }
+
+    new( (void*) (data_ + size_) ) Type(args...); // Ideally memory should have been allocated by "malloc" beforehand.
+    ++size_;
+  }
+
   void pop_back()
   {
     --size_;
