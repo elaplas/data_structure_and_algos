@@ -8,8 +8,6 @@
 
 using namespace std;
 
-// Link: https://en.wikipedia.org/wiki/Trie
-
 template<class TVal>
 class Trie{
 
