@@ -1,5 +1,4 @@
 
-
 """
 In this file, the A* route planner algorithm is implemented. The idea is to calculate the cost of possible paths from start point
 to goal point through intermediate points. The task of A* algo is to choose the intermediate points resulting in the minimum cost. 
@@ -21,22 +20,45 @@ h(b,g) and h(c,g) estimated distances.
 """
 
 
-
 def calc_euclidean_dis(p_1, p_2):
-    # Compute Euclidean distance b/w two points
+    """
+    Calculates the diagonal distance b/w two 2D points: sqrt( (x1 - x2)^2 + (y1 - y2)^2 ) ) 
+    Arguments:
+        p_1: first 2D point
+        p_2: second 2D point
+    Returns:
+        diagonal distance
+    """
     return ( (p_1[0] - p_2[0])**2 + (p_1[1] - p_2[1])**2 )**0.5 
 
 
 def calc_manhattan_dis(p_1, p_2):
-    # The distance between two points measured along axes at right angles.
-    # In a plane with p1 at (x1, y1) and p2 at (x2, y2), it is  |x1 - x2| + |y1 - y2|.
+    """
+    Calculates the Manhattan distance b/w two 2D points: |x1 - x2| + |y1 - y2|
+    Arguments:
+        p_1: first 2D point
+        p_2: second 2D point
+    Returns:
+        Manhattan distance
+    """
     return abs(p_1[0] - p_2[0]) + abs(p_1[1] - p_2[1])
 
 
 def calc_h_cost(p_1, p_2, method="euclidean", mu="0.9"):
-
-    # The function is used as a "heuristic function" to estimate the distance between two intersections/points using
-    # either "euclidean" (diagonal distance) or "manhattan" (Mahnhattan distance). For the diagonal 
+    """
+    Estimates the distance b/w two 2D points using of one the functions above
+    Arguments:
+        p_1: first 2D point
+        p_2: second 2D point
+        method: if "euclidean" the fucntion "calc_euclidean_dis" is called, if "manhattan" the function "calc_manhattan_dis" 
+        mu: a float number to reduce the estimate distance to guarantee the optimal path is found
+    Returns:
+        Estimate distance/cost b/w two 2D points
+    """
+    
+    # The function is used as a "heuristic function" to estimate the distance between two 
+    # intersections/points using either "euclidean" (diagonal distacne = sqrt( (x1 - x2)^2 + (y1 - y2)^2 ) ) 
+    # or "manhattan" (Mahnhattan distance = |x1 - x2| + |y1 - y2| ). For the diagonal 
     # distance the ratio "mu" can be set to "0.9" or smaller to safely get admissible estimated distance.
     # For the Manhattan distance the ratio "mu" should be set to much smaller value e.g. "0.4" to ensure 
     # the estimated distance is less than the true distance. Choose one the following options:
@@ -49,7 +71,7 @@ def calc_h_cost(p_1, p_2, method="euclidean", mu="0.9"):
     # Assuming there are two possibilities reaching a goal, "g", from two points "a" and "b": 
     # 1st: "a"->"c"->"g", 2nd: "b"->"c"->"g" where "c" is an intermediate point. 
     # Lets define "h(a,g)" as the estimated cost b/w "a" and "g", "h(b,g)" as estimated cost b/w "b" and "g", 
-    # "d(a,c)" as true cost b/w "a" and "c", "d(b,c)" as true cost b/w "b" and "c". Lets assume the estimated costs
+    # "d(a,c)" as true cost b/w "a" and "c", "d(b,c)" as true cost b/w "b" and "c". Lets assume the estmaited costs
     # "h(a,g)", "h(b,g)" are less than their corresponding true costs and the estimated cost "h(a,g)" is very slightly 
     # smaller than "h(b,g)", so we will choose the first possibility "a"->"c"->"g" and expand it and calculate the
     # total cost "t(a,g)" equals "d(a,c)+h(c,g)" where "h(c,g)" is the estimated cost b/w "c" and "g". The total cost
@@ -60,7 +82,7 @@ def calc_h_cost(p_1, p_2, method="euclidean", mu="0.9"):
     # for all points. 
     #
     # Smaller values for "mu" will guarantee to find the optimal solution but increase the run-time as they lead to 
-    # exploring more possibilities. 
+    # exploring more possibilities.
         
     if method == "euclidean":
         return calc_euclidean_dis(p_1, p_2) * mu
@@ -69,9 +91,16 @@ def calc_h_cost(p_1, p_2, method="euclidean", mu="0.9"):
         return calc_manhattan_dis(p_1, p_2) * mu
             
     
-
 def calc_total_cost(intersections, path, goal):
-    # Calculate path costs 
+    """
+    Calculates the total cost of a path
+    Arguments:
+        intersections: list of 2D points
+        path: a list of node names/ids e.g. [1,2,3,..]
+        goal: goal name/id
+    Returns:
+        estimated total cost of a path
+    """
     path_cost = 0
     for i in range(len(path)-1):
         p_1 = intersections[path[i]]
@@ -103,7 +132,7 @@ class MinHeap:
             self.__resize()
         
         # Put new element in the most right empty spot
-        self.__data[self._next] = node
+        self._data[self._next] = node
         
         # Heapify up
         cur_i = self._next
@@ -132,7 +161,7 @@ class MinHeap:
         
         # Heapify down
         cur_i = 0
-        while cur_i < len(self.__data):
+        while cur_i < len(self._data):
             
             left_i = self.__getLeftChild(cur_i)
             right_i = self.__getRightChild(cur_i)
@@ -199,9 +228,22 @@ class MinHeap:
 
     
 def shortest_path(M,start,goal):
+    """
+    Calculates the shortest path b/w a start point and an ending point
+    Arguments:
+        M: map
+        start: starting point
+        goal: ending point
+    Returns:
+        shortest path
+    """
+    
     print("shortest path called")
-    # The idea is to use a min heap and do the following iteratively until a path consisting of "goal" and has minimum cost is met:
-    # Pop the top element, form new paths from it and calculate the corresponding costs of new paths and then put them back into the min heap. 
+
+    # The idea is to use a min heap and do the following iteratively 
+    # until a path consisting of "goal" and has minimum cost is met:
+    # Pop the top element, form new paths from it and calculate the corresponding
+    # costs of new paths and then put them back into the min heap. 
     
     min_heap = MinHeap()
     start_path = []
@@ -235,5 +277,3 @@ def shortest_path(M,start,goal):
         return popped_node.path
     else:
         return []
-
-
