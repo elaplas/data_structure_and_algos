@@ -1,187 +1,199 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
+
 namespace P{
+template<class T>
+class Iterator
+{
+    public:
 
-template<class Type>
-class Vector{
+    Iterator():Iterator(nullptr){}
+    Iterator(T* ptr):m_ptr(ptr){}
+    ~Iterator() = default;
 
- public:
-  typedef Type* iterator;
-
-  Vector(): Vector(0)
-  {
-  }
-
-  explicit Vector(int cap): size_(0), capacity_(cap)
-  {
-    data_ = new Type[cap];
-  }
-
-  Vector(const Vector& other) noexcept {
-    size_ = other.size_;
-    capacity_ = other.capacity_,
-    data_ = other.data_;
-
-    for (int i = 0; i < size_; ++i) {
-      data_[i] = other.data_[i];
-    }
-  }
-
-  Vector(Vector&& other) noexcept {
-      size_ = other.size_;
-      capacity_ = other.capacity_;
-      data_ = other.data_;
-      other.data_ = nullptr;
-  }
-
-  Vector& operator=(const Vector& other)
-  {
-    size_ = other.size_;
-    capacity_ = other.capacity_;
-    data_ = other.data_;
-
-    for (int i = 0; i < size_; ++i) {
-      data_[i] = other.data_[i];
-    }
-    return *this;
-  }
-
-  Vector& operator=(Vector&& other)
-  {
-    size_ = other.size_;
-    capacity_ = other.capacity_;
-    data_ = other.data_;
-    other.data_ = nullptr;
-    return *this;
-  }
-
-  ~Vector()
-  {
-    if (data_)
+    T& operator*()
     {
-      delete[] data_;
+        return *m_ptr;
     }
-  }
 
-  void clear()
-  {
-    size_ = 0;
-    capacity_ = 0;
-    if (data_)
+    Iterator& operator++()
     {
-      delete[] data_;
+        ++m_ptr;
+        return *this;
     }
-  }
 
-  void push_back(const Type& element)
-  {
-    if (size_ >= capacity_)
+    Iterator operator++(int)
     {
-      reserve(capacity_ + 10);
+        auto tmpIt=*this;
+        ++m_ptr;
+        return tmpIt;
     }
-    data_[size_] = element;
-    ++size_;
-  }
 
-  template<class... Arg>
-  void emplace_back(Arg... args)
-  {
-    if (size_ >= capacity_)
+    bool operator==(const Iterator& other)
     {
-      reserve(capacity_ + 10);
+        return m_ptr == other.m_ptr;
     }
-
-    new( (void*) (data_ + size_) ) Type(args...); // Ideally memory should have been allocated by "malloc" beforehand.
-    ++size_;
-  }
-
-  void pop_back()
-  {
-    --size_;
-  }
-
-  Type& operator[](int i)
-  {
-    return data_[i];
-  }
-
-  const Type& operator[](int i) const
-  {
-    return data_[i];
-  }
-
-  Type& front()
-  {
-    return data_[0];
-  }
-
-  Type& back()
-  {
-    return data_[size_-1];
-  }
-
-  void reserve(int capacity)
-  {
-    Type* newData = new Type[capacity];
-    int smallerSize = capacity < size_ ? capacity : size_;
-    for (int i = 0; i < smallerSize; ++i)
+    
+    bool operator!=(const Iterator& other)
     {
-      newData[i] = data_[i];
+        return m_ptr != other.m_ptr;
     }
-    delete[] data_;
-    data_ = newData;
-    capacity_ = capacity;
-  }
 
-  iterator erase(iterator first, iterator last)
-  {
-    auto endIt = end();
-
-    // Corner case: end iterator passed as first iterator
-    if (first == endIt)
+    int operator-(const Iterator& other)
     {
-      return endIt;
+        return m_ptr - other.m_ptr;
     }
-    auto followingItAfterErase = first + 1;
-    // Move elements, which invalidates iterators including end iterator
-    while (last != endIt)
+
+    Iterator operator+(int i)
     {
-      ++last;
-      // Check if last is not already the end iterator because the end iterator is valid but not dereferenceable
-      if (last!= endIt)
-      {
-        *first = *last;
-      }
-      ++first;
+        return Iterator(m_ptr + i);
     }
-    // Fix size and end iterator ( one is added because the difference b/w two numbers don't count one number)
-    auto itDiff = (last - first) + 1;
-    size_ -= itDiff;
 
-    return  followingItAfterErase;
-  }
+    Iterator operator-(int i)
+    {
+        return Iterator(m_ptr - i);
+    }
 
-  iterator erase(iterator pos)
-  {
-    return erase(pos, pos);
-  }
+    private:
 
-  iterator begin()
-  {
-    return data_;
-  }
-
-  iterator end()
-  {
-    return data_ + size_;
-  }
-
-private:
-  int size_;
-  int capacity_;
-  Type* data_;
+    T* m_ptr;
 };
+
+template<class T>
+class Allocator
+{
+    public:
+
+    T* allocate(int n)
+    {
+        return static_cast<T*>(std::malloc(n*sizeof(T)));
+    }
+
+    void deallocate(T* ptr)
+    {
+        std::free(ptr);
+    }
+
+    template<class... Args>
+    void construct(T* ptr, Args... args)
+    {
+        new ( (void*) ptr) T(args...); 
+    }
+
+    void destroy(T* ptr)
+    {
+        ptr->~T();
+    }
+};
+
+template<class T, class TAllocator = Allocator<T>>
+class Vector
+{
+    public:
+
+    using TIterator = Iterator<T>;
+    using TConst = const T;
+    using TConstIterator = Iterator<TConst>;
+    
+    Vector():m_capacity(10), m_next(0)
+    {
+        m_data = new T[m_capacity];
+    }
+
+    void resize(int newCapacity)
+    {
+        int minCapacity = m_capacity;
+
+        if ( newCapacity < minCapacity){
+            minCapacity = newCapacity;
+        }
+
+        auto newData = new T[newCapacity];
+        for (int i=0; i < minCapacity; ++i)
+        {
+            newData[i] = m_data[i];
+        }
+        delete[] m_data;
+        m_data = newData;
+        m_capacity = newCapacity;
+    }
+
+    void push_back(const T& value)
+    {
+        if ( m_next >= m_capacity)
+        {
+            resize(m_capacity*2);
+        }
+        m_data[m_next] = value;
+        ++m_next;
+    }
+
+    template<class... Args>
+    void emplace_back(Args... args)
+    {
+        if (m_next >= m_capacity)
+        {
+            resize(m_capacity*2);
+        }
+        m_allocator.construct(m_data+m_next, args...);
+        // new (void*(m_data+m_next)) T(args..); 
+        ++m_next;
+    }
+    
+    void pop_back()
+    {
+        if (!m_next)
+        {
+            return;
+        }
+        --m_next;
+    }
+
+    T& operator[](int i)
+    {
+        return m_data[i];
+    }
+
+    const T& operator[](int i) const
+    {
+        return m_data[i];
+    }
+
+    TIterator begin() {return TIterator(m_data); }
+    TIterator end() { return TIterator(m_data+m_next);}
+    TConstIterator begin() const {return TConstIterator(m_data); }
+    TConstIterator end() const { return TConstIterator(m_data+m_next);}
+
+    TIterator erase(TIterator first, TIterator last)
+    {
+        auto curFirst = first;
+        auto curLast = last;
+
+        while (curLast != end())
+        {
+            *curFirst = *curLast;
+            ++curFirst;
+            ++curLast;
+        }
+
+        auto diff = last - first;
+        m_next -= diff;
+        return TIterator(first + diff);
+    }
+
+    TIterator erase(TIterator it)
+    {
+        return erase(begin(), it);
+    }
+
+    private:
+    int m_capacity;
+    int m_next;
+    T* m_data;
+    TAllocator m_allocator;
+};
+
 
 }
 
