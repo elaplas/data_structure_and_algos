@@ -2,23 +2,21 @@
 #include "min_heap.h"
 
 
-using namespace  std;
+
 
 int main() {
 
-  minHeap myHeap;
-  myHeap.Push(2);
-  myHeap.Push(3);
-  myHeap.Push(4);
-  myHeap.Push(5);
-  myHeap.Push(6);
-  myHeap.Push(7);
-  myHeap.Push(8);
-  myHeap.Push(9);
-  std::cout << myHeap.getMin() << std::endl;
-  myHeap.Pop();
-  std::cout << myHeap.getMin() << std::endl;
-  myHeap.Pop();
-  std::cout << myHeap.getMin() << std::endl;
+  MinHeap<int> minHeap;
+  minHeap.push( MinHeap<int>::Node{1, 3.5});
+  minHeap.push( MinHeap<int>::Node{2, 5.5});
+  minHeap.push( MinHeap<int>::Node{3, 2.5});
+  minHeap.push( MinHeap<int>::Node{4, 0.5});
+  minHeap.push( MinHeap<int>::Node{5, 0.75});
+  while ( minHeap.size())
+  {
+      auto res = minHeap.pop();
+      std::cout<< "value: "<<res.value << ", cost: "<<res.cost<<"\n";
+  }
+
   return 0;
 }

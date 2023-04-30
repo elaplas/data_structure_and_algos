@@ -3,84 +3,127 @@
 
 #include <vector>
 
-using namespace std;
 
-class minHeap{
+template<class T>
+class MinHeap
+{
+    public:
 
- public:
-  int getParentIndex(int i){
-    return (i-2)/2;
-  }
-  int getLeftChildIndex(int i)
-  {
-    return (i*2)+1;
-  }
-  int getRightChildIndex(int i)
-  {
-    return (i*2)+2;
-  }
-  bool hasParent(int i)
-  {
-    return getParentIndex(i) >= 0;
-  }
-
-  bool hasLeftChild(int i)
-  {
-    return getLeftChildIndex(i) < data_.size();
-  }
-
-  bool hasRightChild(int i)
-  {
-    return getRightChildIndex(i) < data_.size();
-  }
-
-  int getMin()
-  {
-    return data_[0];
-  }
-
-  void heapifyDown()
-  {
-      int currentIndex =0;
-      while (hasLeftChild(currentIndex) && ( data_[currentIndex] > data_[getLeftChildIndex(currentIndex)] ||
-                                                                  data_[currentIndex] > data_[getRightChildIndex(currentIndex)]) )
-      {
-        int childIndex = getLeftChildIndex(currentIndex);
-        if (data_[getLeftChildIndex(currentIndex)] > data_[getRightChildIndex(currentIndex)])
-        {
-           childIndex = getRightChildIndex(currentIndex);
-        }
-        swap ( data_[currentIndex], data_[childIndex]);
-        currentIndex = childIndex;
-      }
-  }
-  void heapifyUp()
-  {
-    int currentIndex = data_.size() - 1;
-    while (hasParent(currentIndex) && data_[getParentIndex(currentIndex)] > data_[currentIndex])
+    struct Node
     {
-      swap(data_[getParentIndex(currentIndex)], data_[currentIndex] );
+        T value;
+        float cost;
+    };
+
+    MinHeap():m_next(0), m_capacity(10)
+    {
+        m_data = new Node[m_capacity];
     }
-  }
 
-  void Push(int value)
-  {
-    data_.push_back(value);
-    heapifyUp();
-  }
 
-  int Pop()
-  {
-    int tmp = data_[0];
-    data_[0] = data_.back();
-    data_.pop_back();
-    heapifyDown();
-    return tmp;
-  }
+    void push(const Node& node)
+    {
+        if (m_next >= m_capacity)
+        {
+            resize(m_capacity*2);
+        }
+        m_data[m_next] = node;
+        heapify_up();
+        ++m_next;
+    }
 
- private:
-  vector<int> data_;
+    Node pop()
+    {
+        if (!m_next)
+        {
+            return Node();
+        }
+
+        auto tmpNode = m_data[0];
+        m_data[0] = m_data[m_next-1];
+        heapify_down();
+        --m_next;
+        return tmpNode;
+    }
+
+    int size() const {return m_next;}
+
+
+    private:
+
+    void resize(int newCapacity)
+    {
+        int minCapacity = m_capacity;
+        if (newCapacity < m_capacity)
+        {
+            minCapacity = newCapacity;
+        }
+        auto newData = new Node[newCapacity];
+        for (int i=0; i< minCapacity; ++i)
+        {
+            newData[i] = m_data[i];
+        }
+        m_data = newData;
+        m_capacity = newCapacity;
+    }
+
+    void heapify_up()
+    {
+        int curChild = m_next;
+        while(curChild!=0)
+        {
+            int curParent = static_cast<int>((curChild-1)/2);
+            if (m_data[curChild].cost < m_data[curParent].cost)
+            {
+                auto tmp = m_data[curParent];
+                m_data[curParent] = m_data[curChild];
+                m_data[curChild] = tmp;
+                curChild = curParent;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    void heapify_down()
+    {
+        int curParent = 0;
+        while ( curParent*2+2 < m_capacity)
+        {
+            int leftChild = curParent*2+1;
+            int rightChild = curParent*2+2;
+            int curChild = leftChild;
+            if (m_data[rightChild].cost < m_data[leftChild].cost)
+            {
+                curChild = rightChild;
+            }
+
+            if (curChild >= m_next)
+            {
+                break;
+            }
+
+            if (m_data[curChild].cost < m_data[curParent].cost)
+            {
+                auto tmp = m_data[curParent];
+                m_data[curParent] = m_data[curChild];
+                m_data[curChild] = tmp;
+                curParent = curChild;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    private:
+
+    int m_next;
+    int m_capacity;
+    Node* m_data;
 };
-
 
 #endif//HEAP__MIN_HEAP_H_
