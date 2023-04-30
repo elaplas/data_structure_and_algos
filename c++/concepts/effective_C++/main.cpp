@@ -1,6 +1,6 @@
 #include <iostream>
 
-/** AspectRation_ is preferred to ASPECT_RATIO because
+/** AspectRation is preferred to ASPECT_RATIO because
    * 1- saves replacement action
    * 2- ASPECT_RATIO (define consts) can not been seen sometimes by compilers
    */
@@ -28,7 +28,7 @@ void PrintString(){
  * 3- To make sure there is only one copy of const variable, it shall be static
  * 4- only one instance of static const variable is shared among all instances of class
  * 5- To be able to passed it in functions with pass-by-reference value, it shall be defined in impl scope of class
- * 6- static const cannot be initialized in declaration scope of class
+ * 6- non-integral static const e.g. static const float cannot be initialized in declaration scope of class
  */
 
 class A{

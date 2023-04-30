@@ -1,6 +1,7 @@
 #include <iostream>
 #include <utility>
 #include <type_traits>
+#include <string>
 
 #include "some_characteristics.h"
 #include "remove_reference.h"
@@ -49,4 +50,16 @@ int main()
     wrapper(200); // 200 is rvalue and stays as rvalue reference 
     int y = 200;
     wrapper(y);  // y is passed as lvalue reference and stays lvalue reference. Hint: implicit specialization:  wrapper(y) = wrapper<int&>(y)
+
+    // Moving object and passing it as rvalue to save memory and time in construction of a new object
+    std::string myString = "Ebrahim Goodarzi";
+    auto moveString = myMove<std::string>(myString);
+    std::string newString(moveString);
+
+    // Prints nothing because "myString" moved and turned to rvalue and consumed by "newString" in its move constructor
+    std::cout<<myString<<std::endl;
+
+    // Prints "Ebrahim Goodarzi"
+    std::cout<<newString<<std::endl;
+
 }

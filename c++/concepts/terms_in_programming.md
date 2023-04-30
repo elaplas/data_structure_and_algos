@@ -21,7 +21,7 @@ Sequence container:
 - The elements can be accessed sequentially 
 - Examples are array, vector, forward-list, doubly liked list, queue, dequeue, ...
 - Insertion to and deletion from the end of container is constant time
-- Insertion to and deletion from the end of container is linear time
+- Insertion to and deletion is linear time
 
 Associative contianer: 
 
@@ -29,7 +29,7 @@ Associative contianer:
 - Elements follow strict weak ordering 
 - Examples are set (key and value are the same), map
 - Insertion to and deletion from the end of container is O(log n)
-- Insertion to and deletion from the end of container is constant time in best case and linear in worse case
+- Insertion to and deletion is constant time in best case and linear in worse case
 
 Allocator aware container:
 

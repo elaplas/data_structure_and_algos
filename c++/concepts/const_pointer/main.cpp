@@ -55,11 +55,16 @@ int main() {
   // The following line is complied because "const int*"" is a pointer of a const integer and its pointer is a pointer of a pointer of const integer
   // (the same type )
   ptr = &ptr3;
-  // The following line is complied because "int*" is converted first to "int* const" and then converted to a pointer of const pointer to const integer
+  // The following line is complied because "int*" is converted first to "int* const" and then converted to a pointer of const pointer of const integer
   // (the same type since it is converted is two steps)
   ptr2 = &ptr4;
   
+  int x;
+  int* ptr_x = &x;
+  int** ptr_ptr_x = &ptr_x;
 
+  // This line will fail because it is not possible to get the address of rvalue. &x is the address (a copy of address) of variable x 
+  // ptr_ptr_x = &(&x)
 
 
   std::cout << "Hello, World!" << std::endl;

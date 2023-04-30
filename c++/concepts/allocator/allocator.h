@@ -15,31 +15,34 @@ class allocator {
         template<class U>
         allocator(const allocator<U>& other) noexcept{}
 
-        // Allocate memory without initializing it / without constructing any objects
+        // Reserves a memory block with size "n" (no construction and no initialization) 
+        // and returns the address of the beginning of the memory block
         T* allocate(size_t n)
         {
-            std::cout<<"memory allocated: "<< n*sizeof(T) << " [bytes]" <<std::endl;
+            std::cout<<"a block of memory reserved: "<< n*sizeof(T) << " [bytes]" <<std::endl;
             return static_cast<T*>(std::malloc(n*sizeof(T)));
         }
 
-        // Create and store an object in memory
-        void construct(T* ptr, const T& val)
+        // Creates an object of type "T" at position "ptr" by passing the corresponding arguments 
+        // to the constructor of type "T". It involves no copy at construction (in-place construction)
+        template<class... Args>
+        void construct(T* ptr, Args... args)
         {
-            std::cout<<"one object is constructed in memory address: "<<ptr<<std::endl;
-            ptr = new ((void*)ptr) T(val);
+            std::cout<<"one object of type T is (in-place) constructed in memory address: "<<ptr<<std::endl;
+            ptr = new ((void*)ptr) T(args...);
         }
 
         // Deallocate memory without destructing the stored objects
         void deallocate(T* ptr, size_t n) noexcept
         {
-            std::cout<<"memory deallocated"<<std::endl;
+            std::cout<<"the reserved block of memory is freed"<<std::endl;
             std::free(ptr);
         }
 
         // Destruct an object in memory
         void destroy(T* ptr)
         {
-            std::cout<<"one object is destructed in memory address: "<<ptr<<std::endl;
+            std::cout<<"one object of type T is destructed in memory address: "<<ptr<<std::endl;
             ptr->~T();
         }
 };

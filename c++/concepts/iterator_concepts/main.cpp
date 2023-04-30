@@ -16,7 +16,7 @@
 // and that two iterators are comparable in the same range
 
 // bidirectional iterator: it refines "forward iterator" by requiring that the iterator moves also
-// backward
+// backward (decrementable)
 
 // random access iterator: it refines "bidirectional iterator" by adding support for constant time
 // advancement through "+=", "+", "-=" and "-"" operators and array notation through subscripting

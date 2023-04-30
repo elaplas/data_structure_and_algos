@@ -45,7 +45,7 @@ class C: public A, public B{
 /**
  * Private inheritance:
  * 1- public methods and members of base class can be still accessed inside the derived class
- * 2- public methods and members of base class are turned in to derived class and cannot be accessed from outside
+ * 2- public methods and members of base class are turned into private in the derived class and cannot be accessed from outside
  *
  */
 class D: public A, B{

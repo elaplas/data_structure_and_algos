@@ -9,5 +9,14 @@ void func()
 int main() {
 
 
-  return 0;
+ std::cout<<".............."<<"\n";
+    Producer producer;
+    Consumer consumer;
+    std::thread t1(&Producer::producer, Producer());
+    std::thread t2(&Consumer::consumer, Consumer());
+
+    t1.join();
+    t2.join();   
+
+    return 0;
 }

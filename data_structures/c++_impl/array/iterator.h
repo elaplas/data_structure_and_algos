@@ -14,9 +14,18 @@ template<class Type> class Iterator {
   Iterator(Type *pointer) :
       pointer_(pointer) {}
 
-  Iterator operator++(int) {
-    pointer_++;
+
+  Iterator& operator++()
+  {
+    ++pointer_;
     return *this;
+  }
+
+  Iterator operator++(int) 
+  {
+    auto tmpIt = *this; 
+    pointer_++;
+    return tmpIt;
   }
 
   Type& operator*()
@@ -24,11 +33,13 @@ template<class Type> class Iterator {
     return *pointer_;
   }
 
-  bool operator==(const Iterator &other) {
+  bool operator==(const Iterator &other) 
+  {
     return pointer_ == other.pointer_;
   }
 
-  bool operator!=(const Iterator &other) {
+  bool operator!=(const Iterator &other) 
+  {
     return pointer_ != other.pointer_;
   }
 

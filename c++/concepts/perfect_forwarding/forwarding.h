@@ -27,6 +27,14 @@ T&& forward(typename remove_reference<T>::type&& t)
     return static_cast<T&&>(t);
 }
 
+// Move a variable ---> casting from lvalue to rvalue 
+
+template<class T>
+remove_reference<T>::type&& myMove(remove_reference<T>::type& t)
+{
+    return static_cast<remove_reference<T>::type&&>(t);
+}
+
 
 };
 

@@ -101,9 +101,9 @@ int main() {
 
   ///run time error because down casting of reference cannot be done using
   /// "dynamic_cast"
-  Derived& dd{dynamic_cast<Derived&>(base)};
-  std::cout<<"down casting of reference: ";
-  dd.PrintMe();
+  //Derived& dd{dynamic_cast<Derived&>(base)};
+  //std::cout<<"down casting of reference: ";
+  //dd.PrintMe();
 
   /// reinterpret_casting is used to cast from one type to another type e.g. base class to derived class (down casting)
   /// (base class is not the type of derived class because the derived class may have a member that base class doesnt contain)

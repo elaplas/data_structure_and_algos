@@ -1,6 +1,6 @@
 # Graph
 
-A graph data structure is used to represent and manipulate the relations b/w objects, people and any things. A graph usually contains
+A graph data structure is used to represent and to manipulate the relations b/w objects, people and other things. A graph usually contains
 
 - Nodes that can store different information e.g. the name, age, address and etc of a person. 
 
