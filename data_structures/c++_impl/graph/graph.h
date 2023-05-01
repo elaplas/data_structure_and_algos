@@ -2,64 +2,87 @@
 // Created by z639627 on 3/10/21.
 //
 
-#ifndef GRAPH__GRAPH_H_
-#define GRAPH__GRAPH_H_
+#ifndef GRAPH__H_
+#define GRAPH__H_
 
+#include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <queue>
 #include <algorithm>
+#include <set>
 
-struct Node
-{
-  int ID;
-  std::vector<int> adj;
-  Node(int id):ID(id){}
-};
-
-
+template<class TId, class TCost>
 class Graph{
 
-  void AddNode(int id)
-  {
-    nodes[id]= Node(id);
-  }
-  void AddEdge(int idSource, int idDestination)
-  {
-    nodes.at(idSource).adj.push_back(idDestination);
-  }
+    public:
+    struct Node{
+        TId id;
+        std::vector<Node*> children;
+        std::unordered_map<TId, TCost> costs;
+    };
 
-  /// Breath First Search to see whether two nodes are connected
-  bool BFS(int idSource, int idDestination)
-  {
-    /// to check nodes in FIFO manner
-    std::queue<Node> nodesToBeChecked;
-    /// to avoid infinite loops
-    std::vector<int> visited;
-    /// first node to check is source node
-    nodesToBeChecked.push(nodes.at(idSource));
 
-    while (!nodesToBeChecked.empty())
+    void add_edge(Node* s, Node* d, TCost cost)
     {
-      const Node& node = nodesToBeChecked.front();
-      if(node.ID == idDestination)
-      {
-        return true;
-      }
-      for (size_t i=0; i < node.adj.size(); ++i)
-      {
-        if(std::find(visited.begin(), visited.end(), node.adj[i] ) == visited.end())
-        {
-          nodesToBeChecked.push(nodes.at(node.adj[i]));
-        }
-      }
-      visited.push_back(node.ID);
-      nodesToBeChecked.pop();
+        s->children.push_back(d);
+        s->costs[d->id] = cost;
+        d->children.push_back(s);
+        d->costs[s->id] = cost;
     }
-  }
 
- private:
-  std::unordered_map<int, Node> nodes;
+    void DFS(Node* node)
+    {
+        std::set<TId> visited;
+        DFSRecursive(node, visited);
+    }
+
+    void BFS(Node* node)
+    {
+        std::queue<Node*> que;
+        que.push(node);
+        std::set<TId> visited;
+        visited.insert(node->id);
+
+
+        while (que.size())
+        {
+            auto curNode = que.front();
+            std::cout<< "node: " <<curNode->id<<"\n";
+
+            for (auto neighbor: curNode->children)
+            {
+                if (visited.find(neighbor->id) == visited.end())
+                {
+                    visited.insert(neighbor->id);
+                    que.push(neighbor);
+                }
+            }
+
+            que.pop();
+        }
+    }
+
+    private:
+
+    void DFSRecursive(Node* node, std::set<TId>& visited)
+    {
+        std::cout<< "node: " <<node->id<<"\n";
+        visited.insert(node->id);
+        if (!node->children.size())
+        {
+            return;
+        }
+
+        for (auto neighbor: node->children)
+        {
+            if (visited.find(neighbor->id) == visited.end()) 
+            {
+                DFSRecursive(neighbor, visited);
+            }
+        }
+    }
 };
 
-#endif //GRAPH__GRAPH_H_
+
+#endif //GRAPH__H_

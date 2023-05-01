@@ -4,18 +4,18 @@
 
 int main() {
 
-  DynamicQueue<int> queue1;
+  DynamicQueue<int> que;
 
-  for (int i = 0; i < 10; ++i) {
-    queue1.push(i);
+  que.push_back(1);
+  que.push_back(2);
+  que.push_back(3);
+  que.push_back(4);
+  que.push_back(5);
+
+  while (que.size())
+  {
+      std::cout<<que.pop_front() << std::endl;
   }
-
-  /// test dynamic queue
-  std::cout << queue1[0].data_ << std::endl;
-  queue1.pop();
-  std::cout << queue1.front() << std::endl;
-  std::cout << queue1.back() << std::endl;
-  std::cout <<"..........................."<<std::endl;
 
   StaticQueue<int, 10> queue2;
 

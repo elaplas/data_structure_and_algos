@@ -5,44 +5,63 @@
 #ifndef STACK_DYNAMIC_STACK_H_
 #define STACK_DYNAMIC_STACK_H_
 
+/**
+ * @brief implements an stack using a "linked-list" as base data structure
+ * 
+ * @tparam Type 
+ */
 template<class Type>
 class DynamicStack {
 
 public:
-  struct Node
-      {
-        Node* next_{nullptr};
-        Type  value_;
+    struct Node
+    {
+        T value;
+        Node* next;
+    };
 
-        Node(Type value):value_(value){}
-      };
+    Stack(): m_top(nullptr), m_size(0){}
 
- public:
+    ~Stack()
+    {
+        auto curNode = m_top;
+        while (curNode != nullptr){
+            auto tmp = curNode;
+            curNode = curNode->next;
+            delete tmp;
+        }
+    }
 
-  void pop()
-  {
-    if (!top_)
-      return;
+    void push(const T& value)
+    {
+        auto newNode = new Node{value, nullptr};
+        newNode->next = m_top;
+        m_top = newNode;
+        ++m_size;
+    }
 
-    Node* tmp = top_;
-    top_ = top_->next_;
-    delete tmp;
-  }
+    T pop()
+    {
+        if (!m_size)
+        {
+            return T();
+        }
 
-  const Type& push(const Type& value)
-  {
-    Node* newNode = new Node(value);
-    newNode->next_ = top_;
-    top_ = newNode;
-  }
+        T tmpValue = m_top->value;
+        auto tmpNode = m_top;
+        m_top = m_top->next;
+        delete tmpNode;
+        --m_size;
+        return tmpValue;
+    }
 
-   const Type& top()
-   {
-    top_->value_;
-   }
+    int size() {return m_size;}
 
- private:
-  Node* top_{nullptr};
+    T& top() {return m_top->value;}
+
+    private:
+    Node* m_top;
+    int m_size;
 };
 
 

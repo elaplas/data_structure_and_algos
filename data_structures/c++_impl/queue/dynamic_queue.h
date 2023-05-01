@@ -5,71 +5,78 @@
 #ifndef QUEUE__DYNAMIC_QUEUE_H_
 #define QUEUE__DYNAMIC_QUEUE_H_
 
-template<class Type>
-struct Node
+/**
+ * @brief implements a queue using "linked-list" as base data structure
+ * 
+ * @tparam T   template type
+ */
+template<class T>
+class DynamicQueue
+{
+    public:
+
+    struct Node
     {
-  Node* next;
-  Type data_;
-  Node(const Type& data )
-  {
-    data_=data;
-  }
+        T value;
+        Node* next;
     };
 
-template<class Type>
-class DynamicQueue {
+    DynamicQueue(): 
+     m_front(nullptr),
+     m_back(nullptr),
+     m_size(0){}
 
- public:
-  typedef struct Node<Type> Node;
+     ~DynamicQueue()
+     {
+        auto curNode = m_front;
+        while (curNode)
+        {
+            auto tmp = curNode;
+            curNode = curNode->next;
+            delete tmp;
+        }
+     }
 
-  void push(const Node& node)
-  {
-    Node* newNode= new Node(node);
-    if(back_ == nullptr)
+    void push_back(const T& value)
     {
-      front_ = back_ = newNode;
+        if (!m_front)
+        {
+            m_front = m_back = new Node{value, nullptr};
+        }
+        else
+        {
+            m_back->next = new Node{value, nullptr};
+            m_back = m_back->next;
+        }
+        ++m_size;
     }
-    else
+
+    T pop_front()
     {
-      back_->next=newNode;
-      back_=newNode;
+        if (!m_size)
+        {
+            return T();
+        }
+
+        T tmpVal = m_front->value;
+        auto tmpNode = m_front;
+        m_front = m_front->next;
+        delete tmpNode;
+        --m_size;
+        return tmpVal;
     }
-  }
 
-  void pop()
-  {
-    if(front_== nullptr)
-    {
-      return;
-    }
-    Node* oldFront = front_;
-    front_=front_->next;
-    delete oldFront;
-  }
+    int size() {return m_size;}
 
-  const Node& operator[](int index) {
-    int counter = 0;
-    Node *current{front_};
-    while (counter != index) {
-      ++counter;
-      current = current->next;
-    }
-    return *current;
-  }
+    T& back(){return m_back->value;}
+    T& front(){return m_front->value;}
 
-  const Type& front()
-  {
-    return front_->data_;
-  }
+    private:
+    Node* m_front;
+    Node* m_back;
+    int m_size;
 
-  const Type& back()
-  {
-    return back_->data_;
-  }
-
- private:
-  Node* front_{nullptr};
-  Node* back_{nullptr};
 };
+
 
 #endif //QUEUE__DYNAMIC_QUEUE_H_

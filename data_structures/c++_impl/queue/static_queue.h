@@ -5,11 +5,17 @@
 #ifndef QUEUE__STATIC_QUEUE_H_
 #define QUEUE__STATIC_QUEUE_H_
 
+/**
+ * @brief implements a queue using an array as base data structure
+ *   
+ * @tparam Type      element type
+ * @tparam MAX_SIZE  size of queue
+ */
 template <class Type, int MAX_SIZE>
 class StaticQueue {
  public:
   StaticQueue():
-  front_(0),
+  front_(MAX_SIZE-1),
   back_(MAX_SIZE-1)
   {}
 
@@ -21,10 +27,10 @@ class StaticQueue {
     return data_[back_];
   }
 
-  Type& pop()
+  Type pop()
   {
-    int oldFront = front_;
     front_ = (front_+1)%MAX_SIZE;
+    int oldFront = front_;
     return data_[oldFront];
   }
 
@@ -45,7 +51,7 @@ class StaticQueue {
 
 
  private:
-  Type data_[MAX_SIZE];
+  Type data_;
   int front_;
   int back_;
 };
