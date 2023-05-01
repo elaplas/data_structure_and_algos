@@ -41,6 +41,4 @@ int main() {
   graphX.DFS('A');
   std::cout<<"...........BFS.........."<<"\n";
   graphX.BFS('A');
-
-
 }

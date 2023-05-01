@@ -4,72 +4,61 @@
 #include <list>
 #include <unordered_map>
 
-using namespace std;
 
-template<class TKey, class TVal>
-class LRU{
+ template<class TKey, class TValue>
+class LRUCache{
 
- public:
+    public:
 
-  using TPair = pair<TVal, typename list<TKey>::iterator>;
-  using TIterator = typename unordered_map<TKey, TPair>::iterator;
+    LRUCache(): LRUCache(5){}
+    LRUCache(int maxSize):m_maxSize(maxSize){}
 
-  LRU(int memorySize): memorySize_(memorySize)
-  {
-  }
-
-  void insert(const TKey& key, const TVal& value)
-  {
-    map_[key].first = value;
-    doublyLinkedList_.push_front(key);
-    auto& it = map_[key].second;
-    // Check if iterator is dereferenceable and points to some memory
-    if (it._M_node)
+    void set(const TKey& key, const TValue& value)
     {
-      doublyLinkedList_.erase(it);
-    }
-    it = doublyLinkedList_.begin();
-    // keep cache small
-    if (map_.size() > memorySize_)
-    {
-      auto keyToDelete = doublyLinkedList_.back();
-      doublyLinkedList_.pop_back();
-      map_.erase(keyToDelete);
+        if ( m_cache.find(key) == m_cache.end() )
+        {
+            m_cache[key] = value;
+            m_frequency.push_back(key);
+        }
+        else
+        {
+            m_frequency.remove(key);
+            m_frequency.push_back(key);
+        }
+
+        if (m_cache.size() > m_maxSize)
+        {
+            auto removedKey = m_frequency.front();
+            m_frequency.pop_front();
+            m_cache.erase(removedKey);
+        }
     }
 
-  }
-
-  TVal& get(const TKey& key)
-  {
-    
-    auto& res = map_[key].first;
-    auto& it = map_[key].second;
-    // Check if iterator is dereferenceable and points to some memory
-    if (it._M_node)
+    TValue read(const TKey& key)
     {
-      doublyLinkedList_.erase(it);
+        if (m_cache.find(key) != m_cache.end())
+        {
+            auto value = m_cache[key];
+            m_frequency.remove(key);
+            m_frequency.push_back(key);
+            return value;
+        }
+        else
+        {
+            return TValue();
+        }
     }
-    doublyLinkedList_.push_front(key);
-    it = doublyLinkedList_.begin();
-    return res;
-  }
 
-  TIterator begin()
-  {
-    return map_.begin();
-  }
-
-  TIterator end()
-  {
-    return map_.end();
-  }
+    typename std::unordered_map<TKey, TValue>::iterator begin(){return m_cache.begin();}
+    typename std::unordered_map<TKey, TValue>::iterator end(){return m_cache.end();}
 
 
- private:
-  unordered_map<TKey, TPair> map_;
-  list<TKey> doublyLinkedList_;
-  int memorySize_;
+    private:
+
+    std::unordered_map<TKey, TValue> m_cache;
+    std::list<TKey> m_frequency;
+    int m_maxSize;
+
 };
-
 
 #endif//LRU_CACHE_H_
