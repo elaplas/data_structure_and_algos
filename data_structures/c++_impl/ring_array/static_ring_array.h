@@ -1,6 +1,3 @@
-//
-// Created by z639627 on 2/28/21.
-//
 
 #ifndef RING_ARRAY__STATIC_RING_ARRAY_H_
 #define RING_ARRAY__STATIC_RING_ARRAY_H_

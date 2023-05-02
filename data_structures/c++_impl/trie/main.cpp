@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
-#include "trie.h"
+#include <vector>
 
-using namespace std;
+#include "trie.h"
+#include "trie_x.h"
 
 
 int main() {
@@ -26,6 +27,29 @@ int main() {
  cout<<"(sea, "<<trie.find(string("sea"))<<")"<<"\n";
  cout<<"(she, "<<trie.find(string("she"))<<")"<<"\n";
  // cout<<"(sells, "<<trie.find(string("sells"))<<")"<<"\n";   key-val pair (sells, 200) doesn't exist so it should lead to seg fault
+
+
+
+TrieX<int> trieX;
+trieX.add_word(std::string("ab"));
+trieX.add_word(std::string("abc"));
+trieX.add_word(std::string("abd"));
+trieX.add_word(std::string("abce"));
+trieX.add_word(std::string("abcf"));
+trieX.add_word(std::string("abdm"));
+trieX.add_word(std::string("abdl"));
+std::cout<<"............."<<"\n";
+auto res = trieX.suffix(std::string("ab"));
+for(auto& suffix: res)
+{
+    std::cout<<suffix<<"\n";
+}
+std::cout<<"............."<<"\n";
+res = trieX.suffix(std::string("abc"));
+for(auto& suffix: res)
+{
+    std::cout<<suffix<<"\n";
+}
  
   return 0;
 }
