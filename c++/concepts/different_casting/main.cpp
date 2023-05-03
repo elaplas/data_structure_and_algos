@@ -93,10 +93,19 @@ int main() {
   /// dynamic_casting is used to safely cast
   /// dynamic_casting check the correctness and possibility of casting if not possible it casts to nullptr
   /// dynamic casting is compiled only when the methods are virtual and there is polymorphism
+
+  /// use base reference 
   Base base;
   func2(dynamic_cast<Derived*>(&base));
   Base1 base1;
   func2(dynamic_cast<Derived1*>(&base1));
+  std::cout<<"....................."<<std::endl;
+
+  /// use upcased pointer 
+  Base* upcastedBase = new Derived();
+  func2(dynamic_cast<Derived*>(upcastedBase));
+  Base1* upcastedBase1 = new Derived1();
+  func2(dynamic_cast<Derived1*>(upcastedBase1));
   std::cout<<"....................."<<std::endl;
 
   ///run time error because down casting of reference cannot be done using
@@ -107,7 +116,7 @@ int main() {
 
   /// reinterpret_casting is used to cast from one type to another type e.g. base class to derived class (down casting)
   /// (base class is not the type of derived class because the derived class may have a member that base class doesnt contain)
-  /// reinterpret_casting could be dangerous because it doesnt check the correctness of casting
+  /// reinterpret_casting could be dangerous because it doesn't check the correctness of casting
   func2(reinterpret_cast<Derived*>(&base));
   func2(reinterpret_cast<Derived1*>(&base1));
 
