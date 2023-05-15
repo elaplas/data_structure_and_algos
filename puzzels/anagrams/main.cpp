@@ -37,13 +37,13 @@ vector<vector<int>> FindAnagrams(const vector<string>& words)
       vector<int> vec{i};
       myMap[word] = vec;
     }
-
-    for (const auto el: myMap)
-    {
-      res.push_back(el.second);
-    }
-    return res;
   }
+
+  for (const auto el: myMap)
+  {
+    res.push_back(el.second);
+  }
+  return res;
 }
 
 

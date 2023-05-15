@@ -4,6 +4,9 @@
 using namespace std;
 
 /**
+ * @brief several buy and sell
+ * 
+ */
  * input: [100, 200, 150, 50, 700, 800, 500]
  * output:  200-100: 100 , 800 - 50 : 750 --> 850
  *
