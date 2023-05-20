@@ -92,7 +92,7 @@ vector<vector<int>> find4SumOptimized(const vector<int>& vec, int x)
         int myKey = vec[i]+ vec[j];
         if (myMap.find(myKey) != myMap.end())
         {
-          ///scip the current combination and the stored combination that have the same element
+          ///skip the current combination and the stored combination that have the same element
           if (i == myMap[myKey][0] || i == myMap[myKey][1] ||
               j == myMap[myKey][0] || j == myMap[myKey][1] )
           {
@@ -100,7 +100,7 @@ vector<vector<int>> find4SumOptimized(const vector<int>& vec, int x)
           }
           vector<int> myVec{ vec[i], vec[j], vec[myMap[myKey][0]], vec[myMap[myKey][1]]};
           sort(myVec.begin(), myVec.end());
-          ///scip repetitive combinations
+          ///skip repetitive combinations
           if (!IsCombinationInRes(res, myVec))
           {
             res.push_back(myVec);

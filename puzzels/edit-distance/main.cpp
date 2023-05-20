@@ -6,7 +6,7 @@
 using namespace std;
 
 /**
- * minimum operations to edit a string to make a equal to another string
+ * minimum operations to edit a string to make it equal to another string
  *
  * operations:
  *  - remove a character from S1
@@ -44,25 +44,6 @@ int EditDis(const string& S1, const string& S2)
   int indexS1 = 0;
   int indexS2 = 0;
   return EditDisRec(S1, indexS1,  S2, indexS2);
-}
-
-
-int EditDisRecWithMem(const string& S1, int indexS1,  const string& S2, int indexS2)
-{
-
-  if (indexS1 > S1.size() && indexS2 > S2.size())
-    return 0;
-
-  if (indexS1 > S1.size() && indexS2 < S2.size())
-    return S2.size() - indexS2 ;
-
-  if (indexS1 < S1.size() && indexS2 > S2.size())
-    return S1.size() - indexS1;
-
-  if (S1[indexS1] == S2[indexS2])
-    return EditDisRec(S1, indexS1+1, S2, indexS2+1);
-  else
-    return 1 + std::min(std::min(EditDisRec(S1, indexS1+1, S2, indexS2), EditDisRec(S1, indexS1+1, S2, indexS2+1)), EditDisRec(S1, indexS1+1, S2, indexS2));
 }
 
 /**
@@ -136,8 +117,14 @@ int EditDisWithLessMem(const string& S1, const string& S2)
 
 int main() {
 
-  string S1 = "abcc";
-  string S2 = "alc";
+  string S1 = "aa";
+  string S2 = "aaa";
+  std::cout << EditDis(S1, S2) << std::endl;
+  std::cout << EditDisWithMem(S1, S2) << std::endl;
+  std::cout << EditDisWithLessMem(S1, S2) << std::endl;
+
+  S1 = "abcc";
+  S2 = "alc";
   std::cout << EditDis(S1, S2) << std::endl;
   std::cout << EditDisWithMem(S1, S2) << std::endl;
   std::cout << EditDisWithLessMem(S1, S2) << std::endl;
@@ -160,6 +147,19 @@ int main() {
   std::cout << EditDisWithMem(S1, S2) << std::endl;
   std::cout << EditDisWithLessMem(S1, S2) << std::endl;
 
+
+  S1 = "abaabbbbabaabaa";
+  S2 = "aaaababa";
+  std::cout << EditDis(S1, S2) << std::endl;
+  std::cout << EditDisWithMem(S1, S2) << std::endl;
+  std::cout << EditDisWithLessMem(S1, S2) << std::endl;
+
+
+  S1 = "aab";
+  S2 = "abbbaababbbbaa";
+  std::cout << EditDis(S1, S2) << std::endl;
+  std::cout << EditDisWithMem(S1, S2) << std::endl;
+  std::cout << EditDisWithLessMem(S1, S2) << std::endl;
 
   return 0;
 }
