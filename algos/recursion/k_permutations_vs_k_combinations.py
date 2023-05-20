@@ -1,5 +1,5 @@
 
-# all combinations with length k
+# all combinations with length k - O(n!/(k!(n-k)!)
 def k_combinations(arr, k):
     result = []
     gen_combinations(arr, 0, k, result)
@@ -30,26 +30,23 @@ def gen_combinations(arr, i, k, result):
 def k_permutations(arr, k):
     
     if k == 1:
-        return [[el] for el in range(len(arr))]
+        return [[i] for i in range(len(arr))]
     
     permutations = k_permutations(arr, k-1)
     new_permutations = []
     for permutation in permutations:
-        for num in arr:
-            if num not in permutation:
+        for index in range(len(arr)):
+            if index not in permutation:
                 copy = [el for el in permutation]
-                copy.append(num)
+                copy.append(index)
                 new_permutations.append(copy)
 
     return new_permutations
 
 
 arr = [1,2,3,4,5]
-res = k_permutations(arr, 3)
-print(res)
-
-print("...................................")
-
-arr = [1,2,3,4,5]
-res = k_combinations(arr, 3)
-print(res)
+permutations = k_permutations(arr, 3)
+result = []
+for permutation in permutations:
+    result.append([arr[index] for index in permutation])
+print(result)
