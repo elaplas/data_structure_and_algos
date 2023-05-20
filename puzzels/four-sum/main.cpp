@@ -163,7 +163,7 @@ vector<vector<int>> find4SumOptimizedLessSpace(vector<int>& vec, int x)
 
 int main() {
 
-  ///test naive algo
+  ///test naive algos
   vector<int> vec{1, 0, -1, 0, -2, 2};
   const auto& res = find4Sum(vec, 0);
   PrintVecOfVec(res);
