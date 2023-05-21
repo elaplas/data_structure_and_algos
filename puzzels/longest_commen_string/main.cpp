@@ -18,7 +18,7 @@ using namespace std;
 /**
  * if we iterate through characters of two strings:
  *  -if two characters are the same, we have to check the remaining part of two strings
- *  -if two characters are not the same, we have to scip one of the characters and check the remaining part
+ *  -if two characters are not the same, we have to skip one of the characters and check the remaining part
  * this is a substructure problem meaning that the problem can be divided to sub-problems, so we go for dynamic programming:
  *
  * first try --> top-down approach --> recursive
