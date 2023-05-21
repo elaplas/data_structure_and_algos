@@ -1,3 +1,13 @@
+
+
+""" 
+Problem:
+
+1- Find kth smallest node of BST?
+2- Sort an array using a BST?
+
+"""
+
 class Node:
     def __init__(self, val = None):
         self.value = val
