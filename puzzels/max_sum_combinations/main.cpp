@@ -54,7 +54,7 @@ vector<int> getLargestSumCombinationsOptimizedSpace(vector<int> A, vector<int> B
 }
 
 
-/// time complexity: o(n)
+/// time complexity: o(nlogn)
 /// space complexity: o(n)
 vector<int> getLargestSumCombinationsOptimizedSpaceOptimizedRunTime(vector<int> A, vector<int> B, int k)
 {

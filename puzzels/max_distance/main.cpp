@@ -29,9 +29,38 @@ int FindMaxDistance(const std::vector<int>& A )
   return ans;
 }
 
+int FindMaxDistanceNaive(const std::vector<int>& A )
+{
+  int res = 0;
+  for (int i=0; i < A.size(); ++i)
+  {
+    for(int j=i+1; j < A.size(); j++)
+    {
+      if (A[j] > A[i])
+      {
+        if (j - i > res)
+        {
+          res = j-i;
+        }
+      }
+    }
+  }
+
+  return res;
+}
+
+
+
+
 int main() {
   std::vector<int> A{3,5,4,2};
+  std::vector<int> B{5,12,2,7,8,3,11,9};
 
   std::cout << FindMaxDistance(A) << std::endl;
+  std::cout << FindMaxDistanceNaive(A) << std::endl;
+
+  std::cout << FindMaxDistance(B) << std::endl;
+  std::cout << FindMaxDistanceNaive(B) << std::endl;
+
   return 0;
 }

@@ -9,22 +9,23 @@
 * output: 3
 *
 * input: "adababcddcc"
-* output: 4
+* output: 4 -->(abcd)
+*
+* input: "abacadag"
+* output: 5 --> (abcdg)
 *
 """
 
 
 
-
-
-
 def lswr(str_x):
+    lookup = set()
     res = ""
-    for character in str_x:
-        if character not in res:
-            res = res + character
-    
-    return len(res), res
+    for char in str_x:
+        if char not in lookup:
+            lookup.add(char)
+            res += char
+    return res, len(lookup)
 
 
 str_x = "bbbbbbbbbbb"
@@ -37,6 +38,6 @@ res = lswr(str_x)
 print(res)
 
 
-str_x = "adababcddcc"
+str_x = "abacadag"
 res = lswr(str_x)
 print(res)
