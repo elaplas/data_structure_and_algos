@@ -1,7 +1,4 @@
 
-import math
-
-
 
 """
 You are given a N x N 2D matrix A representing an image.
@@ -45,13 +42,14 @@ def rotate_matrix(matrix):
 
     rows = len(matrix)
     cols = len(matrix[0])
+    # transpose the matrix
     for row in range(rows):
         for col in range(cols):
             if row != col and row < col:
                 tmp = matrix[row][col] 
                 matrix[row][col] = matrix[col][row]
                 matrix[col][row] = tmp
-
+    # Change cols
     for row in range(rows):
         for col in range(cols//2):
             tmp = matrix[row][col] 
