@@ -13,6 +13,9 @@
 // free: deallocate memory without calling destructors (deallocation without destruction)
 // delete: deallocate memory and calling destructors (deallocation and destruction)
 
+// alignedof: the number of bytes between successive addresses at which objects of this type can be allocated. 
+// alignment: requirement, which is a nonnegative integer value (of type std::size_t, and always a power of two)
+// representing the number of bytes between successive addresses at which objects of this type can be allocated. 
 
 // Allocation from data memory
 unsigned char globalMemPtr[8];

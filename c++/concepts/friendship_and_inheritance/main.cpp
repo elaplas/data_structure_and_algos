@@ -20,21 +20,13 @@ float getArea(const Rectangle& rectangle)
   return rectangle.length * rectangle.width;
 }
 
+//function friendship can be inherited but only for base members
 class Cube: public Rectangle{
 
 private:
   int height;
 };
 
-/**
- *
- * Compilation error as function friendship cannot be inherited
- *
-float getArea(const Cube& cube)
-{
-  return cube.length * cube.width;
-}
-*/
 
 
 ///Friend classes are those whose member functions can access the private and protected member functions of
@@ -85,6 +77,9 @@ int main() {
   /// if the function parameters are defined as const reference, then we can pass them as rvalue( temporary objects without
   /// identifiable address)
   std::cout << getArea(Rectangle())<< std::endl;
+  std::cout << ".................................."<< std::endl;
+
+  std::cout << getArea(Cube())<< std::endl;
   std::cout << ".................................."<< std::endl;
 
   Curve curve;

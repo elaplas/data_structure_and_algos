@@ -9,7 +9,7 @@ namespace Example{
 // We need first to be aware of two important characteristics of "C++" in order to understand "perfect forwarding" and "remove reference"
 
 // 1) if a type definition (either by using "typedef" or in "template argument") contains already "const" or "&", adding more "const" and "&" expressions 
-// will not change the type it already hat 
+// will not change the type it already had
 
 // Example
 typedef const int ConstInt;

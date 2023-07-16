@@ -36,7 +36,8 @@ int main() {
 
   /// we cannot pass the address of a rvalue because it doesnt have an identifiable address
   /// but if we first pass it through a function with move operator (&&), we can treat it as
-  /// an object with identifiable address
+  /// an object with identifiable address. Once rvalue reference is passed through a function, 
+  /// it is turned to a lvalue reference
   func2(A());
 
   /// if we directly pass the pointer of rvalues, they cannot be handled

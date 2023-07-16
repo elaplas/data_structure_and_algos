@@ -27,7 +27,7 @@ void PrintString(){
  * 2- The const member variable is shared with outside of class, so it has to be static
  * 3- To make sure there is only one copy of const variable, it shall be static
  * 4- only one instance of static const variable is shared among all instances of class
- * 5- To be able to passed it in functions with pass-by-reference value, it shall be defined in impl scope of class
+ * 5- To be able to pass it in functions with pass-by-reference value, it shall be defined in impl scope of class
  * 6- non-integral static const e.g. static const float cannot be initialized in declaration scope of class
  */
 

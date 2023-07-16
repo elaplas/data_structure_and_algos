@@ -44,7 +44,7 @@ int main() {
   const int* ptr3;
   // a pointer of an integer
   int* ptr4;
-  // a const pointer of of pointer of a const integer
+  // a const pointer of pointer of a const integer
   const int** const ptr5 = nullptr;
   // A const pointer of const integer
   const int* const ptr6 = nullptr;

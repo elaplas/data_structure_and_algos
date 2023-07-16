@@ -10,6 +10,7 @@ void print(int i, float x, char c)
     std::cout<<"int: "<<i<<" , float: "<<x<< " , char: "<<c<<std::endl;
 }
 
+// variadic templates
 template<class... T>
 void func(T&... args)
 {

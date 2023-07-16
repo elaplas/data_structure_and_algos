@@ -108,6 +108,9 @@ int main() {
   func2(dynamic_cast<Derived1*>(upcastedBase1));
   std::cout<<"....................."<<std::endl;
 
+  /// Hint: downcasting by dynamic_cast (run-time casting) is only possible if the passed pointer is already
+  /// an up-casted pointer and the class is polymorphic meaning that that have at least one virtual function  
+
   ///run time error because down casting of reference cannot be done using
   /// "dynamic_cast"
   //Derived& dd{dynamic_cast<Derived&>(base)};

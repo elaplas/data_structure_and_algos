@@ -29,7 +29,7 @@ class allocator {
         void construct(T* ptr, Args... args)
         {
             std::cout<<"one object of type T is (in-place) constructed in memory address: "<<ptr<<std::endl;
-            ptr = new ((void*)ptr) T(args...);
+            new ((void*)ptr) T(args...);
         }
 
         // Deallocate memory without destructing the stored objects
