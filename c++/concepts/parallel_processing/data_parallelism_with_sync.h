@@ -1,6 +1,3 @@
-
-
-
 #pragma
 
 #include <iostream>

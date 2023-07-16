@@ -7,7 +7,7 @@
 
     3) Your compiler probably doesn’t remember the details of one .cpp file while it is compiling another .cpp file. 
     It could, but most do not and if you are reading this FAQ, it almost definitely does not. 
-    BTW this is called the “separate compilation model.”
+    BTW this is called the “separate compilation model” where each c++ file is compiled separately. 
 
     
     
@@ -72,8 +72,8 @@
         std::cout<<a.t<<"\n";
     }
 
-    In this case the preprocessor will include the header file "bar.h" in the file "foo.cpp" (compilation unit) and the complier will  
+    In this case the preprocessor will include the header file "bar.h" in the file "bar.cpp" and tries to construct the class "A" but
+    it cannot do it because it doesn't know anything about the template arguments and template specializations. After that the complier will
+    include the header file "bar.h" in the file "foo.cpp" (compilation unit) and the complier will  
     see only the declaration of class template "A" and the instantiation "A<int>", so it cannot generate class "A" with the 
     type "int". (separate compilation model effect) 
-
-
