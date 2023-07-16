@@ -14,46 +14,33 @@
 template <class Type, int MAX_SIZE>
 class StaticQueue {
  public:
-  StaticQueue():
-  front_(MAX_SIZE-1),
-  back_(MAX_SIZE-1)
-  {}
+
+ public:
+    StaticQueue():m_front(0), m_back(SIZE-1){}
+
+    void push_back(const T& val)
+    {
+        m_back = (m_back+1)%SIZE;
+        m_data[m_back] = val;
+    }
+
+    T pop_front()
+    {
+        auto tmp = m_data[m_front];
+        m_front = (m_front+1) % SIZE;
+        return tmp;
+    }
+
+    T& front(){return m_data[m_front];}
+    T& back(){return m_data[m_back];}
 
 
-  Type& push(const Type& element)
-  {
-    back_=(back_+1)%MAX_SIZE;
-    data_[back_]=element;
-    return data_[back_];
-  }
-
-  Type pop()
-  {
-    front_ = (front_+1)%MAX_SIZE;
-    int oldFront = front_;
-    return data_[oldFront];
-  }
-
-  Type& operator[](int i)
-  {
-    return data_[(front_+i)%MAX_SIZE];
-  };
-
-  Type& front()
-  {
-    return data_[front_];
-  }
-
-  Type& back()
-  {
-    return data_[back_];
-  }
-
-
- private:
-  Type data_;
-  int front_;
-  int back_;
+    private:
+    T m_data[SIZE];
+    int m_front;
+    int m_back;
+  
+ 
 };
 
 #endif //QUEUE__STATIC_QUEUE_H_

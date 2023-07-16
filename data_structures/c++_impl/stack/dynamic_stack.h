@@ -10,58 +10,58 @@
  * 
  * @tparam Type 
  */
-template<class Type>
-class DynamicStack {
-
-public:
+template<class T>
+class Stack
+{
+    public:
     struct Node
     {
         T value;
         Node* next;
+
+        Node(const T& val): value(val){}
     };
 
-    Stack(): m_top(nullptr), m_size(0){}
+    Stack():m_top(nullptr){}
 
     ~Stack()
     {
         auto curNode = m_top;
-        while (curNode != nullptr){
-            auto tmp = curNode;
+        while(curNode)
+        {
+            auto preNode = curNode;
             curNode = curNode->next;
-            delete tmp;
+            delete preNode;
         }
     }
 
-    void push(const T& value)
+    void push(const T& val)
     {
-        auto newNode = new Node{value, nullptr};
-        newNode->next = m_top;
-        m_top = newNode;
-        ++m_size;
+        auto tmp = new Node(val);
+        tmp->next = m_top;
+        m_top = tmp;
     }
 
     T pop()
     {
-        if (!m_size)
+        if (!m_top)
         {
             return T();
         }
 
-        T tmpValue = m_top->value;
-        auto tmpNode = m_top;
+        auto tmpVal = m_top->value;
+        auto tmpPtr = m_top;
         m_top = m_top->next;
-        delete tmpNode;
-        --m_size;
-        return tmpValue;
+        delete tmpPtr;
+        return tmpVal;
     }
 
-    int size() {return m_size;}
+    bool empty(){ return m_top == nullptr;}
 
     T& top() {return m_top->value;}
 
     private:
     Node* m_top;
-    int m_size;
 };
 
 

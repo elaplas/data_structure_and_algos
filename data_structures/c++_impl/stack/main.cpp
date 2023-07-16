@@ -7,47 +7,27 @@
 
 int main() {
 
-  DynamicStack<int>  stack1;
-  StaticStack<int, 5> stack2;
+    Stack<int> st;
+    for(int i=0; i < 10; ++i)
+    {
+        st.push(i);
+    }
 
-  for(int i=0; i<10; ++i)
-  {
-    stack1.push(i);
-  }
+    while (!st.empty())
+    {
+        std::cout<<st.pop()<<"\n";
+    }
 
+    StaticStack<int, 10> st;
+    for(int i=0; i < 15; ++i)
+    {
+        st.push(i);
+    }
 
-
-  std::cout << stack1.top() << std::endl;
-
-  stack1.pop();
-
-  std::cout << stack1.top() << std::endl;
-
-  stack1.push(11);
-
-  std::cout << stack1.top() << std::endl;
-
-  std::cout << "....................." << std::endl;
-
-
-  for(int i=0; i<5; ++i)
-  {
-    stack2.push(i);
-  }
-
-  std::cout << stack2.top() << std::endl;
-
-  stack2.pop();
-
-  std::cout << stack2.top() << std::endl;
-
-  stack2.push(11);
-
-  std::cout << stack2.top() << std::endl;
-
-  stack2.push(12);
-
-  std::cout << stack2.top() << std::endl;
+    while (!st.empty())
+    {
+        std::cout<<st.pop()<<"\n";
+    }
 
   ///
   BalancedBrackets balancedBrackets;
