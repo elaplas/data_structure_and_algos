@@ -1,7 +1,3 @@
-//
-// Created by z639627 on 3/10/21.
-//
-
 #ifndef GRAPH__H_
 #define GRAPH__H_
 
@@ -12,76 +8,89 @@
 #include <algorithm>
 #include <set>
 
-template<class TId, class TCost>
-class Graph{
+class Graph
+{
 
     public:
-    struct Node{
-        TId id;
-        std::vector<Node*> children;
-        std::unordered_map<TId, TCost> costs;
-    };
 
-
-    void add_edge(Node* s, Node* d, TCost cost)
+    void addNodes(const std::vector<char>& nodes)
     {
-        s->children.push_back(d);
-        s->costs[d->id] = cost;
-        d->children.push_back(s);
-        d->costs[s->id] = cost;
-    }
-
-    void DFS(Node* node)
-    {
-        std::set<TId> visited;
-        DFSRecursive(node, visited);
-    }
-
-    void BFS(Node* node)
-    {
-        std::queue<Node*> que;
-        que.push(node);
-        std::set<TId> visited;
-        visited.insert(node->id);
-
-
-        while (que.size())
+        for (auto nd: nodes)
         {
-            auto curNode = que.front();
-            std::cout<< "node: " <<curNode->id<<"\n";
+            m_nodes.insert(nd);
+        }
+    }
 
-            for (auto neighbor: curNode->children)
+    void addEdge(char s, char d)
+    {
+        if (m_neighbors.find(s) != m_neighbors.end())
+        {
+            m_neighbors[s].push_back(d);
+        }
+        else
+        {
+            m_neighbors[s] = std::vector<char>{d};
+        }
+    }
+
+    void DFS(char s)
+    {
+        std::set<char> visited;
+        DFSHelper(s, visited);
+    }
+
+    void DFSHelper(char node, std::set<char>& visited)
+    {
+        visited.insert(node);
+        if (m_neighbors.find(node) != m_neighbors.end())
+        {
+            auto neighbors = m_neighbors[node];
+            for (auto neighbor: neighbors)
             {
-                if (visited.find(neighbor->id) == visited.end())
+                if (visited.find(neighbor) == visited.end())
                 {
-                    visited.insert(neighbor->id);
-                    que.push(neighbor);
+                    DFSHelper(neighbor, visited);
                 }
             }
-
-            que.pop();
         }
+        std::cout<<node<<"\n";
     }
 
-    private:
-
-    void DFSRecursive(Node* node, std::set<TId>& visited)
+    void BFS(char s)
     {
-        std::cout<< "node: " <<node->id<<"\n";
-        visited.insert(node->id);
-        if (!node->children.size())
-        {
-            return;
-        }
+        std::set<char> visited;
+        BFSHelper(s, visited);
+    }
 
-        for (auto neighbor: node->children)
+    void BFSHelper(char node, std::set<char>& visited)
+    {
+        std::queue<char> que;
+        que.push(node);
+
+        while(!que.empty())
         {
-            if (visited.find(neighbor->id) == visited.end()) 
+            auto poppedNode = que.front();
+            que.pop();
+            std::cout<<poppedNode<<"\n";
+            if (m_neighbors.find(poppedNode) != m_neighbors.end())
             {
-                DFSRecursive(neighbor, visited);
+                auto neighbors = m_neighbors[poppedNode];
+                for (auto neighbor: neighbors)
+                {
+                    if (visited.find(neighbor) == visited.end())
+                    {
+                        que.push(neighbor);
+                        visited.insert(neighbor);
+                    }
+                }
             }
         }
     }
+
+
+    private:
+    std::unordered_map<char, std::vector<char>> m_neighbors;
+    std::set<char> m_nodes;
 };
 
 
