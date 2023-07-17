@@ -1,214 +1,226 @@
-//
-// Created by z639627 on 3/9/21.
-//
 
-#ifndef TREE_H_
-#define TREE_H_
-
+#pragma
 #include <queue>
 #include <iostream>
 
-  template<class T>
-class Tree
-{
+
+template<class T>
+class Tree{
+
     public:
     struct Node{
-        T value;
         Node* left;
         Node* right;
+        T value;
+
+        Node(const T& val):value(val), left(nullptr), right(nullptr)
+        {}
     };
 
     Tree():m_root(nullptr){}
 
-    void add(const T& value)
+    void add(const T& val)
     {
         if (!m_root)
         {
-            m_root = new Node{value, nullptr, nullptr};
+            m_root = new Node(val);
         }
         else
         {
             auto curNode = m_root;
-            Node* preNode = nullptr;
-
-            while (curNode)
+            while(curNode)
             {
-                preNode = curNode;
-                if (value < curNode->value )
+                if (val < curNode->value)
                 {
-                    curNode = curNode->left;
+                    if (curNode->left)
+                    {
+                        curNode=curNode->left;
+                    }
+                    else
+                    {
+                        curNode->left=new Node(val);
+                        break;
+                    }
                 }
                 else
                 {
-                    curNode = curNode->right;
+                    if (curNode->right)
+                    {
+                        curNode = curNode->right;
+                    }
+                    else
+                    {
+                        curNode->right = new Node(val);
+                        break;
+                    }
                 }
-            }
-
-            if (value < preNode->value)
-            {
-                preNode->left = new Node{value, nullptr, nullptr};
-            }
-            else
-            {
-                preNode->right = new Node{value, nullptr, nullptr};
-            }
+            }    
         }
     }
 
-    void erase(int value)
-  {
-    Node* currNode = m_root;
-    Node* preNode = nullptr;
-
-    while (currNode)
+    int depth()
     {
-      preNode = currNode;
-
-      if(currNode->value == value)
-      {
-        /// if node doesn't have any children
-        if(!currNode->left && !currNode->right)
-        {
-          if(preNode)
-          {
-            if(currNode->value <= preNode->value)
-              preNode->left = nullptr;
-            else
-              preNode->right= nullptr;
-          }
-          delete currNode;
-        }
-        /// if node has one child
-        if( currNode->left && !currNode->right || !currNode->left && currNode->right)
-        {
-          if(preNode)
-          {
-            if(currNode->value <= preNode->value)
-              if(currNode->left)
-               preNode->left = currNode->left;
-              else
-                preNode->left = currNode->right;
-            else
-            if(currNode->left)
-              preNode->right = currNode->left;
-            else
-              preNode->right = currNode->right;
-
-            delete currNode;
-          }
-          /// if node has two children
-          if(currNode->left && currNode->right)
-          {
-            /// find inorder successor
-            Node* tmp = currNode->right;
-            Node* preTmp = nullptr;
-            while (tmp)
-            {
-              preTmp = tmp;
-              tmp = tmp->left;
-            }
-            currNode->value = tmp->value;
-            preTmp->left = nullptr;
-            delete tmp;
-          }
-        }
-      }
+       return depthHelper(m_root, 0);
     }
-  }
+
+    int diameter()
+    {
+        auto leftDepth = depthHelper(m_root->left, 1);
+        auto rightDepth = depthHelper(m_root->right, 1);
+        return leftDepth + rightDepth;
+    }
+
+    int depthHelper(Node* node, int numEdge)
+    {
+        if (!node)
+        {
+            return numEdge;
+        }
+
+        auto numEdgeLeft = numEdge;
+        auto numEdgeRight = numEdge;
+        if (node->left)
+        {
+            numEdgeLeft = depthHelper(node->left, numEdge+1);
+        }
+
+        if (node->right)
+        {
+            numEdgeRight = depthHelper(node->right, numEdge+1);
+        }
+
+        return std::max(numEdgeLeft, numEdgeRight);
+    }
 
     void DFS()
     {
-        DFSRecursive(m_root);
+        DFSHelper(m_root);
     }
 
     void BFS()
     {
-        std::queue<Node*> que;
-        que.push(m_root);
+        BFSHelper(m_root);
+    }
 
-        while(que.size())
+    void DFSHelper(Node* node)
+    {
+        if (!node)
         {
-            auto front = que.front();
-            std::cout<<front->value<<"\n";
-            if (front->left)
-            {
-                que.push(front->left);
-            }
-            if (front->right)
-            {
-                que.push(front->right);
-            }
+            return;
+        }
+
+        if (node->left)
+        {
+            DFSHelper(node->left);
+        }
+
+        if (node->right)
+        {
+            DFSHelper(node->right);
+        }
+
+        std::cout<<node->value<<"\n";
+    }
+
+    void BFSHelper(Node* node)
+    {
+        std::queue<Node*> que;
+        que.push(node);
+
+        while(!que.empty())
+        {
+            auto poppedNode = que.front(); 
             que.pop();
+            if (poppedNode->left)
+            {
+                que.push(poppedNode->left);
+            }
+
+            if (poppedNode->right)
+            {
+                que.push(poppedNode->right);
+            }
+
+            std::cout<<poppedNode->value<<"\n";
         }
     }
 
-    /**
-    * @brief number of edges on the longest path from the root to any leaf
-    * 
-    * @return int 
-    */
-    int height()
+    void preOreder()
     {
-        return heightRecursive(m_root, 0);
+        preOrderHelper(m_root);
     }
 
-    /**
-    * @brief number of edges on the longest path b/w any two leaves
-    *        idea: find the height of left part of tree and the right part and return their sum
-    * 
-    * @return int 
-    */
-    int diameter()
+    void inOreder()
     {
-        return diameterRecursive(m_root, 0);
+        inOrderHelper(m_root);
     }
 
-    private:
-    void DFSRecursive(Node* node)
+    void postOreder()
+    {
+        postOrderHelper(m_root);
+    }
+
+    void preOrderHelper(Node* node)
     {
         if (!node)
-        return;
+        {
+            return;
+        }
 
         std::cout<<node->value<<"\n";
 
-        DFSRecursive(node->left);
-        DFSRecursive(node->right);
+        if (node->left)
+        {
+            preOrderHelper(node->left);
+        }
+
+        if (node->right)
+        {
+            preOrderHelper(node->right);
+        }
     }
 
-    int heightRecursive(Node* node, int curHeight)
+    void inOrderHelper(Node* node)
     {
         if (!node)
         {
-            return curHeight-1;
+            return;
         }
 
-        auto leftHeight = heightRecursive(node->left, curHeight+1);
-        auto rightHeight = heightRecursive(node->right, curHeight+1);
+        if (node->left)
+        {
+            inOrderHelper(node->left);
+        }
 
-        return std::max(leftHeight, rightHeight);
+        std::cout<<node->value<<"\n";
+
+        if (node->right)
+        {
+            inOrderHelper(node->right);
+        }
     }
 
-    int diameterRecursive(Node* node, int curHeight)
+    void postOrderHelper(Node* node)
     {
         if (!node)
         {
-            return curHeight-1;
+            return;
         }
 
-        auto leftHeight = diameterRecursive(node->left, curHeight+1);
-        auto rightHeight = heightRecursive(node->right, curHeight+1);
-
-        if (node == m_root)
+        if (node->left)
         {
-            return leftHeight + rightHeight;
+            postOrderHelper(node->left);
         }
 
-        return std::max(leftHeight, rightHeight);
+        if (node->right)
+        {
+            postOrderHelper(node->right);
+        }
+
+        std::cout<<node->value<<"\n";
     }
 
     private:
     Node* m_root;
-};
- 
-#endif //TREE_H_
 
+};
