@@ -13,7 +13,7 @@ dynamically allocated space(using malloc, calloc, realloc) --------> heap
 
 It is worth mentioning that "stack" is officially called "automatic storage class"
 
-Code Memory vs. Data Memory
+- Code Memory vs. Data Memory
 
 
 Code memory: 
