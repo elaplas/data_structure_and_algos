@@ -17,15 +17,20 @@ class LRUCache{
     {
         if ( m_cache.find(key) == m_cache.end() )
         {
+            // Init cache and linkedList for this key
             m_cache[key] = value;
             m_frequency.push_back(key);
         }
         else
         {
+            // Update both cache and linkedList for this key
+            m_cache[key] = value;
             m_frequency.remove(key);
             m_frequency.push_back(key);
         }
 
+
+        // Remove the least used key, which is in the front of queue
         if (m_cache.size() > m_maxSize)
         {
             auto removedKey = m_frequency.front();
