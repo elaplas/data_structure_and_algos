@@ -72,3 +72,9 @@ pattern = "*ab**ln"
 text = "fgdafgdln"
 res = wildcard_matcher(pattern, text)
 print(res)
+
+
+pattern = "ab*d"
+text = "abfgmc"
+res = wildcard_matcher(pattern, text)
+print(res)

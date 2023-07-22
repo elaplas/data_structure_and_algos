@@ -17,6 +17,31 @@
 """
 
 
+def lcswr(A):
+
+    ptr = 0
+    lookup = set()
+    lcs = -1
+
+    while ptr < len(A):
+
+        if A[ptr] not in lookup:
+            lookup.add(A[ptr])
+            ptr += 1
+        else:
+            if len(lookup) > lcs:
+                lcs = len(lookup)
+            lookup = set()
+
+    return lcs
+
+
+A = "abcabcxr"
+res = lcswr(A)
+print(res)
+
+
+
 def lcswr(str_x):
     lookup = set()
     counter = 0

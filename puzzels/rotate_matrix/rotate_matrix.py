@@ -31,7 +31,7 @@ output:
 idea: transpose and then change the columns of the matrix.
 
 Hint: in upper triangle of matrix rows are smaller than the cols
-Hint: in bottom triangle of matrix rows are bigger than the cols
+Hint: in lower triangle of matrix rows are bigger than the cols
 
 """
 

@@ -45,20 +45,26 @@ def min_path_in_matrix_helper(M, row, col, res):
 
 # Dynamic programming: i and j are b/w (0, n)x(0, n) so we can map them to a nxn lookup table and 
 # store the result in each step. O(n^2) => polynomial
-def min_path_in_matrix_dp(M):
-    rows = len(M) + 1
-    cols = len(M[0]) + 1 
 
-    res = [[float('inf') for _ in range(cols)] for _ in range(rows)]
-    res[1][1] = M[0][0]
+def  min_path_in_matrix_dp(A):
 
-    for i in range(1, rows):
-        for j in range(1, cols):
-            if i == 1 and j==1:
-                continue
-            res[i][j] = M[i-1][j-1] + min(res[i-1][j], res[i][j-1])
+    rows = cols = len(A) +1
+    MEM = [[0.0 for _ in range(cols)] for _ in range(rows)]
+    MEM[rows-1] = [float('inf')] * cols
     
-    return res[-1][-1]
+    for i in range(rows-1):
+        MEM[i][cols-1] = float('inf')
+
+    MEM[rows-1][cols-1] = 0
+    MEM[rows-2][cols-1] = 0
+    MEM[rows-1][cols-2] = 0
+
+    for i in range(rows-2, -1, -1):
+        for j in range(cols-2, -1, -1):
+
+            MEM[i][j] = A[i][j] + min(MEM[i+1][j], MEM[i][j+1])
+
+    return MEM[0][0]
 
 
 M = [[0 for _ in range(3)] for _ in range(3)]

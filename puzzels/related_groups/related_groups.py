@@ -27,43 +27,34 @@ we use deep first search for traversing the graph
 '''
 
 
-def related_groups(list_strs):
-    
-    res = []
+def related_groups(list_str):
     visited = set()
-    for node in range(len(list_strs)):
-        res_i = dfs(node, list_strs, visited)
-        if len(res_i):
-            res.append(res_i)
+    related_groups = []
+    for i in range(len(list_str)):
+        res = []
+        DFS(list_str, visited, i, res)
+        if len(res):
+            related_groups.append(res)
+    return related_groups
 
-    return len(res), res
-
-def get_neighbors(node, list_strs):
+def DFS(graph, visited, node, res):
     
-    neighbors = []
-    row = list_strs[node]
-    for i in range(len(row)):
-        if i != node and row[i] == '1':
-            neighbors.append(i)
-    
-    return neighbors
-
-def dfs(node, list_strs, visited):
-
-    related_nodes = []
+    # In DFS the current node is added to the result at the end of function
+    # but in this case we need to add it in the beginning of the function
+    # to avoid adding redundant groups
     if node not in visited:
-        related_nodes.append(node)
         visited.add(node)
-    
-    neighbors = get_neighbors(node, list_strs)
+        res.append(node)
 
+    # Get neighbors or edges
+    neighbors = [] 
+    for col in range(len(graph)):
+        if graph[node][col] == '1':
+            neighbors.append(col)
+    
     for neighbor in neighbors:
         if neighbor not in visited:
-            res = dfs(neighbor, list_strs, visited)
-            for el in res:
-                related_nodes.append(el)
-
-    return related_nodes
+            DFS(graph, visited, neighbor, res)
 
 
 list_strs = ["11000", "11100", "01100", "00010", "00001"]
