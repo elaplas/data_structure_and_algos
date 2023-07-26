@@ -37,7 +37,7 @@ def find_single_number(arr):
     res = 0
 
     for el in arr:
-        res ^= el;
+        res ^= el
     return res
 
 arr = [2,2,4,4,6,7,6]
