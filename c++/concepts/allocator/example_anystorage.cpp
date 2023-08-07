@@ -17,10 +17,11 @@ class AnyStorage{
     T* construct(Args... args)
     {
         static_assert(sizeof(T) <= STORAGE_SIZE, "type is bigger than storage");
+        static_assert(alignof(T) <= AlIGNMENT_SIZE, "alignment is bigger than required alignment" )
         auto objPtr= new (&m_storage) T(args...);
-        m_destruct = [](void* objPtr) 
+        m_destruct = [](void* obj_ptr) 
         {
-            static_cast<T*>(objPtr)->~T(); 
+            static_cast<T*>(obj_ptr)->~T(); 
         };
         return objPtr;
     }
@@ -62,13 +63,22 @@ struct B
     {}
 };
 
+struct C
+{
+    float x;
+    char y;
 
+    C(float x1, char y1): 
+    x(x1),
+    y(y1)
+    {}
+};
 
 
 int main()
 {
 
-    AnyStorage<16, 16> anyStorage;
+    AnyStorage<16, 4> anyStorage;
     auto objPtr = anyStorage.construct<A>(1,2);
     std::cout<<".....A....."<<std::endl;
     std::cout<<objPtr->x<<std::endl;
@@ -80,6 +90,13 @@ int main()
     std::cout<<objPtr1->x<<std::endl;
     std::cout<<objPtr1->y<<std::endl;
     std::cout<<objPtr1->z<<std::endl;
+    anyStorage.destruct();
+
+
+    auto objPtr2 = anyStorage.construct<C>(4.5, 'a');
+    std::cout<<".....B....."<<std::endl;
+    std::cout<<objPtr2->x<<std::endl;
+    std::cout<<objPtr2->y<<std::endl;
     anyStorage.destruct();
 
     return 0;
