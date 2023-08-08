@@ -29,12 +29,12 @@ void func2(A&& a)
 }
 
 int main() {
-  /// we cannot pass the address of a rvalue because it doesnt have an identifiable address
+  /// we cannot pass the address of a rvalue because it doesn't have an identifiable address
   /// but if parameters are declared as const reference or by move operators,
   /// we can pass rvalues and use their pointers
   func1(A());
 
-  /// we cannot pass the address of a rvalue because it doesnt have an identifiable address
+  /// we cannot pass the address of a rvalue because it doesn't have an identifiable address
   /// but if we first pass it through a function with move operator (&&), we can treat it as
   /// an object with identifiable address. Once rvalue reference is passed through a function, 
   /// it is turned to a lvalue reference

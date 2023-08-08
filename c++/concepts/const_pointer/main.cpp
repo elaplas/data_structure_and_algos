@@ -56,7 +56,7 @@ int main() {
   // (the same type )
   ptr = &ptr3;
   // The following line is complied because "int*" is converted first to "int* const" and then converted to a pointer of const pointer of const integer
-  // (the same type since it is converted is two steps)
+  // (the same type since it is converted in two steps)
   ptr2 = &ptr4;
   
   int x;
