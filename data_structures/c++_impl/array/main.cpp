@@ -14,7 +14,7 @@ int main() {
     
     for (int i=0; i < 10; ++i)
     {
-        arr.push_back(i);
+        arr.emplace_back(i);
     }
 
     cout<<"...................\n";

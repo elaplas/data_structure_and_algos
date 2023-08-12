@@ -96,9 +96,9 @@ class Vector
     using TConst = const T;
     using TConstIterator = Iterator<TConst>;
     
-    Vector():m_capacity(10), m_next(0)
+    Vector():m_capacity(10), m_back(0), m_front(0), m_size(0)
     {
-        m_data = new T[m_capacity];
+        m_data = m_allocator.allocate(m_capacity);
     }
 
     void resize(int newCapacity)
@@ -109,61 +109,70 @@ class Vector
             minCapacity = newCapacity;
         }
 
-        auto newData = new T[newCapacity];
+        auto newData = m_allocator.allocate(newCapacity);
         for (int i=0; i < minCapacity; ++i)
         {
             newData[i] = m_data[i];
         }
-        delete[] m_data;
+        m_allocator.deallocate(m_data);
         m_data = newData;
         m_capacity = newCapacity;
     }
 
     void push_back(const T& value)
     {
-        if ( m_next >= m_capacity)
+        if ( m_size >= m_capacity)
         {
             resize(m_capacity*2);
         }
-        m_data[m_next] = value;
-        ++m_next;
+        m_data[m_back] = value;
+        ++m_back;
+        ++m_size;
     }
 
     template<class... Args>
     void emplace_back(Args... args)
     {
-        if (m_next >= m_capacity)
+        if (m_size >= m_capacity)
         {
             resize(m_capacity*2);
         }
-        m_allocator.construct(m_data+m_next, args...);
-        // new (void*(m_data+m_next)) T(args..); 
-        ++m_next;
+        m_allocator.construct(m_data+m_back, args...);
+        ++m_back;
+        ++m_size;
     }
     
     void pop_back()
     {
-        if (!m_next)
+        if (m_size)
         {
-            return;
+            --m_back;
+            --m_size;
         }
-        --m_next;
     }
 
-    T& operator[](int i)
+    void pop_front()
     {
-        return m_data[i];
+        if (m_size)
+        {
+            ++m_front;
+            --m_size;
+        }
     }
 
-    const T& operator[](int i) const
-    {
-        return m_data[i];
-    }
+    T& front(){ return m_data[m_front];}
+    const T& front() const { return m_data[m_front];}
+
+    T& back() {return m_data[m_back-1];}
+    const T& back() const {return m_data[m_back-1];}
+
+    T& operator[](int i){return m_data[i];}
+    const T& operator[](int i) const{return m_data[i];}
 
     TIterator begin() {return TIterator(m_data); }
-    TIterator end() { return TIterator(m_data+m_next);}
+    TIterator end() { return TIterator(m_data+m_back);}
     TConstIterator begin() const {return TConstIterator(m_data); }
-    TConstIterator end() const { return TConstIterator(m_data+m_next);}
+    TConstIterator end() const { return TConstIterator(m_data+m_back);}
 
     TIterator erase(TIterator first, TIterator last)
     {
@@ -178,18 +187,20 @@ class Vector
         }
 
         auto diff = last - first;
-        m_next -= diff;
+        m_back -= diff;
         return TIterator(first + diff);
     }
 
     TIterator erase(TIterator it)
     {
-        return erase(begin(), it);
+        return erase(it, it+1);
     }
 
     private:
     int m_capacity;
-    int m_next;
+    int m_back;
+    int m_front;
+    int m_size;
     T* m_data;
     TAllocator m_allocator;
 };

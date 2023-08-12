@@ -50,12 +50,23 @@ class Array{
 
         void push_back(const T& value) 
         { 
-            if ( m_size < SIZE)
-            {
-                m_data[m_size] = value;
-                ++m_size;
-                ++m_back;
-            }
+          if ( m_size < SIZE)
+          {
+            m_data[m_size] = value;
+            ++m_size;
+            ++m_back;
+          }
+        }
+
+        template<class... Args>
+        void emplace_back(Args&... args)
+        {
+          if (m_size < SIZE)
+          {
+            new (m_data+m_back) T(args...);
+            ++m_size;
+            ++m_back;
+          }
         }
 
         void pop_front()
