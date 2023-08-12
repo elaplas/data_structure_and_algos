@@ -1,83 +1,118 @@
-//
-// Created by Ebi on 2/27/21.
-//
+#ifndef ARRAY_H_
+#define ARRAY_H_
 
-#ifndef ARRAY__ARRAY_H_
-#define ARRAY__ARRAY_H_
+template<class T, int SIZE>
+class Array{
 
-#include "iterator.h"
+    public:
+        template<class ElementType>
+        class Iterator{
 
-namespace Example{
+            public:
 
+            Iterator(ElementType* ptr):m_ptr(ptr){}
 
-template<class Type, int MAX_SIZE>
-class Array {
+            Iterator& operator++()
+            {
+                ++m_ptr;
+                return *this;
+            }
 
-  typedef class Iterator<Type> FieldIterator;
-  typedef const Type ConstType;
-  typedef class Iterator<ConstType> ConstFieldIterator;
- public:
+            Iterator operator++(int){
+                auto tmp = *this;
+                ++(*this);
+                return tmp;
+            }
 
-  Array():
-  size(MAX_SIZE),
-  ptr(0){}
+            ElementType& operator*()
+            {
+                return *m_ptr;
+            }
 
-  int getSize()
-  {
-    return size;
-  }
+            bool operator==(const Iterator& other)
+            {
+                return m_ptr == other.m_ptr;
+            }
 
-  int resize(int newSize)
-  {
-    size = newSize;
-    return size;
-  }
+            bool operator!=(const Iterator& other)
+            {
+                return !(*this == other);
+            }
 
-  Type& operator[](int index)
-  {
-    return data[index];
-  }
+            private:
+            ElementType* m_ptr;
+        };
 
-  const Type& operator[](int index) const
-  {
-    return data[index];
-  }
+        using TIterator = Iterator<T>;
+        using TConstIterator = Iterator<const T>;
 
-  const Type& push_back(const Type& element)
-  {
-    data[ptr]=element;
-    int prePtr = ptr;
-    ptr = (ptr+1)%MAX_SIZE;
-    return data[prePtr];
-  }
+        Array(): m_size(0), m_front(0), m_back(0){}
 
-  FieldIterator begin()
-  {
-    return FieldIterator(data);
-  }
+        void push_back(const T& value) 
+        { 
+            if ( m_size < SIZE)
+            {
+                m_data[m_size] = value;
+                ++m_size;
+                ++m_back;
+            }
+        }
 
-  FieldIterator end()
-  {
-    return FieldIterator(&data[size]);
-  }
+        void pop_front()
+        {
+            if (m_size)
+            {
+                m_data[m_front] =T();
+                --m_size;
+                ++m_front;
+            }
+        }
 
-   ConstFieldIterator begin() const
-  {
-    return ConstFieldIterator(data);
-  }
+        bool empty(){return !m_size;}
+        bool empty() const {return !m_size;} // only for const reference of Array
 
-  ConstFieldIterator end() const
-  {
-    return ConstFieldIterator(&data[size]);
-  }
+        int size() {return m_size;}
+        int size() const {return m_size;} // only for const reference of Array
 
- private:
-  Type data[MAX_SIZE];
-  int size;
-  int ptr;
+        int max_size(){return SIZE;}
+        int max_size() const {return SIZE;} // only for const reference of Array
 
+        T& back()
+        {
+            return m_data[m_back-1];
+        };
+
+        T& front()
+        {
+            return m_data[m_front];
+        };
+
+        const T& back() const  // only for const reference of Array
+        {
+            return m_data[m_back-1];
+        };
+
+        const T& front() const // only for const reference of Array
+        {
+            return m_data[m_front];
+        };
+
+        T& operator[](int i){return m_data[i];} // calling this function shouldn't increment the size of array
+        const T& operator[](int i) const {return m_data[i];} // only for const reference of Array
+
+        TIterator begin() { return TIterator(&m_data[m_front]);}
+        TIterator end() { return TIterator((&m_data[m_back-1])+1);}
+        TConstIterator begin() const { return TConstIterator(&m_data[m_front]);} // only for const reference of Array
+        TConstIterator end() const { return TConstIterator((&m_data[m_back-1])+1);} // only for const reference of Array
+
+    private:
+
+        T m_data[SIZE];
+        int m_size;
+        int m_front;
+        int m_back;
 };
 
-}
 
-#endif //ARRAY__ARRAY_H_
+
+#endif //ARRAY_H_

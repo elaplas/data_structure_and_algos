@@ -2,54 +2,45 @@
 #include "array.h"
 
 
+using namespace std;
+
 int main() {
 
-  /// example 1
-  Example::Array<int, 10> A;
-  int i=0;
-  for (auto it = A.begin(); it !=A.end(); it++ ) {
-    *it = i;
-    i++;
-  }
+    Array<int, 10> arr;
 
-  /// accessing through non-const iterator
-  for (auto it = A.begin(); it !=A.end(); it++ ) {
-    std::cout<<*it<<std::endl;
-  }
+    cout<<"...................\n";
+    cout<<arr.size()<<"\n";
+    cout<<arr.max_size()<<"\n";
+    
+    for (int i=0; i < 10; ++i)
+    {
+        arr.push_back(i);
+    }
 
+    cout<<"...................\n";
+    cout<<arr.size()<<"\n";
+    cout<<arr.max_size()<<"\n";
 
-  /// accessing through const iterator
-  const auto& constRef = A;
-  for (auto it=constRef.begin(); it != constRef.end(); it++)
-  {
-    std::cout<<*it<<std::endl;
-  }
+    cout<<"...................\n";
+    for (auto el: arr)
+    {
+        cout<<el<<"\n";
+    }
 
-  
-  // Creates two iterator objects once at the beginning and deletes them at the end 
-  // it calls pre-increment operator so range based-for loop preferred
-  for(auto& a: A)
-  {
-    std::cout<<a<<"\n";
-  }
+    for (int i=0; i < 5; ++i)
+    {
+        arr.pop_front();
+    }
 
-  std::cout<<"................"<<"\n";
+    cout<<"...................\n";
+    cout<<arr.front()<<"\n";
+    cout<<arr.back()<<"\n";
 
-  // Creates and deletes multiple iterator objects (because it switches b/w different scopes) 
-  // it calls pre-increment operator (not preferred)
-  for (auto it = A.begin(); it != A.end(); ++it)
-  {
-    std::cout<<*it<<"\n";
-  }
-
-  std::cout<<"................"<<"\n";
-
-  // Creates and deletes multiple iterator objects (because it switches b/w different scopes) 
-  // it calls post-increment operator (not preferred)
-  for (auto it = A.begin(); it != A.end(); it++)
-  {
-    std::cout<<*it<<"\n";
-  }
+    cout<<"...................\n";
+    for (auto el: arr)
+    {
+        cout<<el<<"\n";
+    }
 
 
   return 0;
