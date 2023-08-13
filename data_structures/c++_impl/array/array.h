@@ -116,6 +116,20 @@ class Array{
         TConstIterator begin() const { return TConstIterator(&m_data[m_front]);} // only for const reference of Array
         TConstIterator end() const { return TConstIterator((&m_data[m_back-1])+1);} // only for const reference of Array
 
+        /*
+        * Important hints:
+         1- In const functions of a class, we can only return copy of no-reference and non-pointer members.
+         2- In const functions of a class, we can only return copy of const-reference and const-pointer members.
+         3- In const functions of a class, we can pass copys of no-reference and non-pointer members into other 
+         objects/functions without caring if they are modified later or not
+         4- In const functions of a class, we can pass copy of reference and pointer members into other objects/functions
+         but we need to take care of not being modified or non-cost copy of is returned.
+         5- In const functions of a class if an object is constructed and a copy of it returned, all static and non-static members of 
+          constructed object can be called!
+        
+         6- In a const functions, non-const functions cannot be called.
+        */
+
     private:
 
         T m_data[SIZE];

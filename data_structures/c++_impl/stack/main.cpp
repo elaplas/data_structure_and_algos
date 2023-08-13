@@ -18,15 +18,15 @@ int main() {
         std::cout<<st.pop()<<"\n";
     }
 
-    StaticStack<int, 10> st;
+    StaticStack<int, 15> st1;
     for(int i=0; i < 15; ++i)
     {
-        st.push(i);
+        st1.push(i);
     }
 
-    while (!st.empty())
+    for (auto el: st1)
     {
-        std::cout<<st.pop()<<"\n";
+        std::cout<<el<<"\n";
     }
 
   ///
