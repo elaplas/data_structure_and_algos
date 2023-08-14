@@ -87,8 +87,6 @@ class Graph
         }
     }
 
-
-    private:
     std::unordered_map<char, std::vector<char>> m_neighbors;
     std::set<char> m_nodes;
 };
