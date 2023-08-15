@@ -1,78 +1,53 @@
-#ifndef HEAP__MIN_HEAP_H_
-#define HEAP__MIN_HEAP_H_
+#ifndef MIN_HEAP_H_
+#define MIN_HEAP_H_
 
-#include <vector>
+using namespace std;
 
-
-template<class T>
+template<class TVal, class TCost>
 class MinHeap
 {
     public:
+    struct Node{
 
-    struct Node
-    {
-        T value;
-        float cost;
+        Node(const TVal& v, const TCost& c):value(v), cost(c){}
+        Node() {}
+        TVal value;
+        TCost cost;
     };
 
-    MinHeap():m_next(0), m_capacity(10)
-    {
-        m_data = new Node[m_capacity];
-    }
+    MinHeap():m_next(0), m_size(0) {}
 
-
-    void push(const Node& node)
+    void push(const TVal& val, const TCost& cost)
     {
-        if (m_next >= m_capacity)
-        {
-            resize(m_capacity*2);
-        }
-        m_data[m_next] = node;
-        heapify_up();
+        m_data[m_next] = Node(val, cost);
+        heapifyUp();
         ++m_next;
+        ++m_size;
     }
 
-    Node pop()
-    {
-        if (!m_next)
+    void pop() {
+        if (m_size)
         {
-            return Node();
+            m_data[0] = m_data[m_next-1];
+            heapifyDown();
+            --m_size;
+            --m_next;
         }
-
-        auto tmpNode = m_data[0];
-        m_data[0] = m_data[m_next-1];
-        heapify_down();
-        --m_next;
-        return tmpNode;
     }
 
-    int size() const {return m_next;}
-
+    Node& top() {return m_data[0];}
+    int size() {return m_size;};
+    bool empty(){return !m_size;}
 
     private:
 
-    void resize(int newCapacity)
-    {
-        int minCapacity = m_capacity;
-        if (newCapacity < m_capacity)
-        {
-            minCapacity = newCapacity;
-        }
-        auto newData = new Node[newCapacity];
-        for (int i=0; i< minCapacity; ++i)
-        {
-            newData[i] = m_data[i];
-        }
-        m_data = newData;
-        m_capacity = newCapacity;
-    }
+    void heapifyUp() {
 
-    void heapify_up()
-    {
-        int curChild = m_next;
-        while(curChild!=0)
+        auto curChild = m_next;
+
+        while (curChild)
         {
-            int curParent = static_cast<int>((curChild-1)/2);
+            auto curParent = static_cast<int>( (curChild-1)/2 ); 
             if (m_data[curChild].cost < m_data[curParent].cost)
             {
                 auto tmp = m_data[curParent];
@@ -87,22 +62,19 @@ class MinHeap
         }
     }
 
-    void heapify_down()
+    void heapifyDown()
     {
-        int curParent = 0;
-        while ( curParent*2+2 < m_capacity)
+
+        auto curParent = 0;
+
+        while (curParent*2+1 < m_size && curParent*2+2 < m_size)
         {
-            int leftChild = curParent*2+1;
-            int rightChild = curParent*2+2;
-            int curChild = leftChild;
+            auto leftChild = curParent*2 + 1;
+            auto rightChild = curParent*2 +2;
+            auto curChild = leftChild;
             if (m_data[rightChild].cost < m_data[leftChild].cost)
             {
                 curChild = rightChild;
-            }
-
-            if (curChild >= m_next)
-            {
-                break;
             }
 
             if (m_data[curChild].cost < m_data[curParent].cost)
@@ -120,10 +92,12 @@ class MinHeap
     }
 
     private:
-
+    Node m_data[100];
     int m_next;
-    int m_capacity;
-    Node* m_data;
+    int m_size;
 };
 
-#endif//HEAP__MIN_HEAP_H_
+
+
+
+#endif//MIN_HEAP_H_

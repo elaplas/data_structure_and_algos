@@ -6,16 +6,17 @@
 
 int main() {
 
-  MinHeap<int> minHeap;
-  minHeap.push( MinHeap<int>::Node{1, 3.5});
-  minHeap.push( MinHeap<int>::Node{2, 5.5});
-  minHeap.push( MinHeap<int>::Node{3, 2.5});
-  minHeap.push( MinHeap<int>::Node{4, 0.5});
-  minHeap.push( MinHeap<int>::Node{5, 0.75});
-  while ( minHeap.size())
+  MinHeap<char, float> minHeap;
+  minHeap.push('A', 9.5);
+  minHeap.push('B', 7.5);
+  minHeap.push('C', 10.5);
+  minHeap.push('D', 5.5);
+  minHeap.push('F', 1.5);
+  
+  while (!minHeap.empty())
   {
-      auto res = minHeap.pop();
-      std::cout<< "value: "<<res.value << ", cost: "<<res.cost<<"\n";
+      cout<<"value: "<<minHeap.top().value<<", cost: "<<minHeap.top().cost<<"\n";
+      minHeap.pop();
   }
 
   return 0;
