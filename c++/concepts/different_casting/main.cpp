@@ -92,7 +92,7 @@ int main() {
 
   /// dynamic_casting is used to safely cast
   /// dynamic_casting check the correctness and possibility of casting if not possible it casts to nullptr
-  /// dynamic casting is compiled only when the methods are virtual and there is polymorphism
+  /// dynamic casting (down-casting) is compiled only when the methods are virtual and there is polymorphism
 
   /// use base reference 
   Base base;

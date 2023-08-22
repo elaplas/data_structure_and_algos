@@ -12,11 +12,11 @@
 # 	  /   \
 # 	 2     3
 # 	/ \     \
-#        /   \     \
-#       4     5     6
-#        \         / \
-#         \       /   \
-#          7     8     9
+#  /   \     \
+# 4     5     6
+#  \         / \
+#   \       /   \
+#    7     8     9
 #
 #
 # LCA Queries -
@@ -52,7 +52,7 @@ def LCA_helper(node, val1, val2):
     
 
     left_target = LCA_helper(node.left, val1, val2)
-    right_target = LCA_helper(node.left, val1, val2)
+    right_target = LCA_helper(node.right, val1, val2)
 
     # One of the targets is found
     if node.value == val1 or node.value == val2:

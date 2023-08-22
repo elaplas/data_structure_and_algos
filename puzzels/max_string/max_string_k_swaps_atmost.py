@@ -1,6 +1,6 @@
 
 # Given a string A and integer k, what is maximal lexicographical 
-# string that can be made from A if you do atmost B swaps
+# string that can be made from A if you do atmost k swaps
 # input: A = "254", k = 2
 # output: "542"
 

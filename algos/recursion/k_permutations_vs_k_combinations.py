@@ -44,8 +44,8 @@ def k_permutations(arr, k):
     return new_permutations
 
 
-arr = [1,2,3,4,5]
-permutations = k_permutations(arr, 3)
+arr = [1,2,3,4]
+permutations = k_permutations(arr, 2)
 result = []
 for permutation in permutations:
     result.append([arr[index] for index in permutation])
