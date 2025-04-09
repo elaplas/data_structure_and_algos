@@ -73,6 +73,64 @@
 
 # In[8]:
 
+import numpy as np
+
+## Intutive approch using dynamic programming
+def lcs(S1, S2, M, counter, i, j):
+
+    if M[i, j] != -1:
+       return M[i, j]
+    
+    counter[0] += 1
+    
+    if i >= len(S1):
+        return 0
+    
+    if j >= len(S2):
+        return 0
+    
+    if S1[i]==S2[j]:
+        res = 1 + lcs(S1, S2, M, counter,i+1, j+1)
+        M[i, j] = res
+        return res
+    else:
+        res = max(lcs(S1, S2, M, counter, i, j+1), lcs(S1, S2, M, counter, i+1, j))
+        M[i, j] = res
+        return res
+    
+A = "CATSINSPACETWO"
+B= "DOGSPACEWHO"
+M = np.array([-1.0 for _ in range((len(A)+1)*(len(A)+1))]).reshape((len(A)+1,len(A)+1))
+counter = [0]
+print(lcs(A, B, M , counter, 0, 0))
+print(M)
+print(counter) ## 172
+
+## Intutive approch without dynamic programming 
+def lcs(S1, S2, counter, i, j):
+    
+    counter[0] += 1
+    
+    if i >= len(S1):
+        return 0
+    
+    if j >= len(S2):
+        return 0
+    
+    if S1[i]==S2[j]:
+        res = 1 + lcs(S1, S2, counter,i+1, j+1)
+        M[i, j] = res
+        return res
+    else:
+        res = max(lcs(S1, S2, counter, i, j+1), lcs(S1, S2, counter, i+1, j))
+        M[i, j] = res
+        return res
+    
+A = "CATSINSPACETWO"
+B= "DOGSPACEWHO"
+counter = [0]
+print(lcs(A, B, counter, 0, 0))
+print(counter) # 1982357
 
 def lcs_naive(string_a, string_b):
     base = string_a

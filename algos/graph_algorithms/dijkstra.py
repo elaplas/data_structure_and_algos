@@ -8,6 +8,68 @@
 # In order to run Dijkstra's Algorithm, we'll need to add distance to each edge. We'll use the `GraphEdge` class below to represent each edge between a pair of nodes. You are free to create your own implementation of an undirected graph. 
 
 # In[4]:
+import heapq as heap
+
+
+## Intutive approach:
+
+G = {}
+G['A'] = ['B', 'C', 'D']
+G['B'] = ['A', 'C', 'E']
+G['C'] = ['A', 'B', 'F']
+G['D'] = ['A', 'E']
+G['E'] = ['D', 'B', 'F']
+G['F'] = ['E', 'C']
+
+D = {}
+D['AB'] = 1
+D['AC'] = 2
+D['AD'] = 3
+
+D['BA'] = 1
+D['BC'] = 6
+D['BE'] = 1
+
+D['CA'] = 2
+D['CB'] = 6
+D['CF'] = 4
+
+D['DA'] = 3
+D['DE'] = 2
+
+D['ED'] = 2
+D['EB'] = 1
+D['EF'] = 1
+
+D['FE'] = 1
+D['FC'] = 4
+
+def Dijkstra(G, D, s):
+
+    res = { k:1000000 for k in G.keys()}
+    res[s] = 0
+
+    visited = set()
+    min_heap = []
+    heap.heappush(min_heap, (0, s))
+
+    while len(visited) != len(G.keys()):
+
+        node = heap.heappop(min_heap)
+       
+        node_key = node[1]
+        node_dis = node[0]
+        visited.add(node_key)
+        for adj in G[node_key]:
+            new_dis = D[node_key+adj] + node_dis
+            heap.heappush(min_heap, (new_dis, adj))
+            if new_dis < res[adj]:
+                res[adj] = new_dis
+    
+    return res
+
+res = Dijkstra(G, D, 'A')
+print(res)
 
 
 # Helper Class

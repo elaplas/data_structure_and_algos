@@ -28,6 +28,28 @@
 
 # In[48]:
 
+### Intutive impl
+def make_codes(num):
+
+    if num // 10 == 0:
+        return [[num%10]]
+    
+    res = make_codes(num//10)
+    cur_dig = num%10
+
+    new_res = []
+    for code in res:
+        copy_code1 = [el for el in code]
+        copy_code2 = [el for el in code]
+        copy_code1.append(cur_dig)
+        copy_code2[-1] = (copy_code2[-1]*10 + cur_dig)
+        new_res.append(copy_code1)
+        new_res.append(copy_code2)
+    
+    return new_res
+
+print(make_codes(1234))
+
 
 
 def is_valid(nums):
